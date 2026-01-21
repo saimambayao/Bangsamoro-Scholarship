@@ -1,6 +1,34 @@
 # Overview
 
-This document outlines the software requirements for the **Bangsamoro Scholarship Portal (BSP)** at [`scholarships.bangsamoro.site`](http://scholarships.bangsamoro.site). Requirements are organized based on the portal's three pillars and user types as defined in the [Software Users ](https://www.notion.so/Software-Users-2ef516e0923d80b9accff22edc6152fe?pvs=21) document.
+This document outlines the software requirements for the **Bangsamoro Scholarship Portal (BSP)** at [`scholarships.bangsamoro.site`](http://scholarships.bangsamoro.site). Requirements are organized based on the portal's three pillars and user types as defined in the [Software Users](Users.md) document.
+
+---
+
+# Design System Requirements
+
+## UI Theme: Light Mode with Green & Gold
+
+The portal SHALL use a **light color theme** with accents derived from the **Bangsamoro Scholars Association** logo colors:
+
+| Element | Color Specification |
+| --- | --- |
+| **Primary Brand** | Forest Green (`#1B5E20`) |
+| **Primary Actions** | Emerald Green (`#2E7D32`) |
+| **Accent/Highlights** | Gold (`#D4A017`) |
+| **Page Background** | Light Gray (`#F8FAFC`) |
+| **Card Background** | White (`#FFFFFF`) |
+| **Text Primary** | Slate 900 (`#0F172A`) |
+| **Text Secondary** | Slate 600 (`#475569`) |
+| **Borders** | Slate 200 (`#E2E8F0`) |
+
+## Typography
+
+| Element | Font Specification |
+| --- | --- |
+| **Font Family** | Inter (Google Fonts) |
+| **Headings** | Inter, Bold/Black weight |
+| **Body Text** | Inter, Regular/Medium weight |
+| **Fallback** | system-ui, sans-serif |
 
 ---
 

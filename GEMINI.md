@@ -10,7 +10,7 @@ Development must proceed in two distinct phases to ensure visual and interactive
 *   **Goal:** Build a high-fidelity, interactive version of each page.
 *   **Input:** Use the wireframes and specifications found in `docs/UI-UX/Pages/`.
 *   **Data Handling:** Always use **local mock data** (defined in component files or a dedicated mock data file). Do NOT attempt to connect to the backend during this phase.
-*   **Aesthetics:** Prioritize "Wow" factor. High-impact visuals, smooth animations, and responsive layouts are mandatory. Use the established dark theme with emerald accents.
+*   **Aesthetics:** Prioritize "Wow" factor. High-impact visuals, smooth animations, and responsive layouts are mandatory. Use the established **Light Theme** with **Emerald Green and Gold** accents (derived from the official logo).
 *   **Approval:** Each page must be approved by the USER before its frontend implementation is considered complete.
 
 ### Phase 2: Data Integration (Backend Connection)
@@ -40,17 +40,19 @@ When the USER requests a new page from the `docs/UI-UX/Pages/` directory:
 
 1.  **Audit:** Read the corresponding `.md` file in `docs/UI-UX/Pages/` and check its linked requirements in `Software-Requirements.md`.
 2.  **Mock Data:** Create or update mock data constants to include content for the new page.
-3.  **Components:** Build the necessary React components in `/components/` using the specified aesthetics and the established design system (dark theme, emerald accents).
-4.  **Types:** Update `/types.ts` with any new TypeScript interfaces required.
-5.  **Route:** Register the new page/component in `/App.tsx`.
+3.  **Components:** Build the necessary React components in `/components/` using the specified aesthetics and the established design system (Light Theme, Emerald/Gold).
+4.  **Types:** Update `/types` with any new TypeScript interfaces required.
+5.  **Route:** Register the new page in schema-based routes or Next.js App Router structure.
 6.  **Verify:** Run `npm run build` and notify the USER for visual review.
 
 ## 4. Technology Stack
 
 ### Frontend (Current)
-*   **Framework:** React 19 with TypeScript
-*   **Build Tool:** Vite
-*   **Styling:** Tailwind CSS
+*   **Framework:** Next.js 16.1.4 (App Router)
+*   **Language:** TypeScript
+*   **Styling:** Tailwind CSS + shadcn/ui
+*   **Icons:** Lucide React (No Emojis)
+*   **Animation:** Framer Motion
 *   **AI Integration:** Google Gemini API (`@google/genai`)
 
 ### Backend (Planned)
@@ -73,7 +75,7 @@ When the USER requests a new page from the `docs/UI-UX/Pages/` directory:
 *   Use functional components with React hooks.
 *   Implement smooth animations for enhanced UX.
 *   Ensure all pages are fully responsive (mobile-first).
-*   Follow the established dark theme with emerald accent colors.
+*   Follow the established **Light Theme** with **Emerald Green and Gold** accent colors.
 
 ### Backend (When Implemented)
 *   Django REST Framework for all API endpoints.
@@ -84,19 +86,24 @@ When the USER requests a new page from the `docs/UI-UX/Pages/` directory:
 
 ```
 /
-├── App.tsx                    # Main React component & routing
-├── index.tsx                  # React DOM entry point
-├── index.html                 # HTML template with Tailwind CDN
-├── types.ts                   # TypeScript type definitions
-├── components/                # React components
-│   ├── Header.tsx
-│   ├── Hero.tsx
-│   ├── AnnouncementBar.tsx
-│   ├── LoginModal.tsx
-│   ├── AIAssistant.tsx
-│   └── EligibilityForm.tsx
-├── services/                  # External service integrations
-│   └── geminiService.ts       # Google Gemini AI API
+├── src/
+│   ├── app/                   # Next.js App Router
+│   │   ├── (public)/          # Public pages (Landing, Directory)
+│   │   ├── (auth)/            # Authentication pages
+│   │   ├── (dashboard)/       # Applicant/Scholar dashboard
+│   │   ├── [tenant]/          # Tenant-specific routes
+│   │   ├── layout.tsx         # Root layout
+│   │   └── page.tsx           # Home page
+│   ├── components/            # React components
+│   │   ├── ui/                # shadcn/ui primitives
+│   │   ├── features/          # Feature-specific components
+│   │   ├── layouts/           # Headers, Footers, Sidebars
+│   │   └── shared/            # Reusable shared components
+│   ├── lib/                   # Utilities and mock data
+│   │   └── mock-data.ts
+│   ├── styles/                # Global styles
+│   │   └── globals.css
+│   └── types/                 # TypeScript type definitions
 └── docs/                      # Documentation (gitignored)
     ├── architecture/
     └── UI-UX/Pages/

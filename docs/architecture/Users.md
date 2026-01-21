@@ -6,6 +6,20 @@
 
 ---
 
+# Design Identity: Green & Gold Theme
+
+The BSP visual identity is derived from the **Bangsamoro Scholars Association** logo, featuring:
+
+| Element | Description |
+| --- | --- |
+| **Forest Green** | Represents growth, education, and the Bangsamoro environment |
+| **Gold** | Symbolizes excellence, achievement, and prestige |
+| **Light Background** | Modern, clean aesthetic for readability and accessibility |
+
+This color scheme reflects the aspirations of Bangsamoro scholars and the region's commitment to educational excellence.
+
+---
+
 ## Portal Model: Three Pillars
 
 The BSP operates on three interconnected pillars that serve its primary users:
@@ -61,7 +75,7 @@ Scholarship-granting entities are not just users of the portal—they are **part
 
 **Key Features:**
 
-- **Dedicated Entity Portal** — Each scholarship provider has a branded sub-portal within the BSP (e.g., [`scholarships.bangsamoro.site/mbhte`](http://scholarships.bangsamoro.site/mbhte), [`scholarships.bangsamoro.site/dost`](http://scholarships.bangsamoro.site/dost))
+- **Dedicated Entity Portal** — Each scholarship provider has a branded sub-portal within the BSP (e.g., `scholarships.bangsamoro.site/mbhte`, `scholarships.bangsamoro.site/dost`)
 - **Scholarship Program Management** — Create, edit, and archive scholarship programs with custom eligibility criteria
 - **Application Pipeline** — Receive, review, shortlist, and approve applications through a structured workflow
 - **Applicant Database** — Search and filter qualified applicants from the portal's pool
