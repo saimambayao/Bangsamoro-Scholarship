@@ -1,26 +1,48 @@
-
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Loader2, LogIn } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Loader2, Eye, EyeOff, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useState } from "react";
+import { login, setAuthToken, setUser } from "@/lib/api";
 
 export default function LoginPage() {
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-    async function onSubmit(event: React.SyntheticEvent) {
+    async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setIsLoading(true);
+        setError(null);
 
-        setTimeout(() => {
+        try {
+            const response = await login(username, password);
+            setAuthToken(response.token);
+            setUser(response.user);
+
+            // Redirect based on user role
+            if (response.user.is_platform_admin || response.user.role === 'super_admin') {
+                router.push('/admin');
+            } else if (response.user.is_entity_staff) {
+                router.push('/provider');
+            } else {
+                router.push('/dashboard');
+            }
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+        } finally {
             setIsLoading(false);
-        }, 2000);
+        }
     }
 
     return (
@@ -62,18 +84,27 @@ export default function LoginPage() {
                     </CardHeader>
                     <CardContent className="px-0">
                         <div className="grid gap-6">
+                            {error && (
+                                <Alert variant="destructive">
+                                    <AlertCircle className="h-4 w-4" />
+                                    <AlertDescription>{error}</AlertDescription>
+                                </Alert>
+                            )}
                             <form onSubmit={onSubmit}>
                                 <div className="grid gap-4">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="email">Email</Label>
+                                        <Label htmlFor="username">Email or Username</Label>
                                         <Input
-                                            id="email"
-                                            placeholder="name@example.com"
-                                            type="email"
+                                            id="username"
+                                            placeholder="Email or username"
+                                            type="text"
                                             autoCapitalize="none"
-                                            autoComplete="email"
+                                            autoComplete="username"
                                             autoCorrect="off"
                                             disabled={isLoading}
+                                            value={username}
+                                            onChange={(e) => setUsername(e.target.value)}
+                                            required
                                         />
                                     </div>
                                     <div className="grid gap-2">
@@ -83,11 +114,29 @@ export default function LoginPage() {
                                                 Forgot password?
                                             </Link>
                                         </div>
-                                        <Input
-                                            id="password"
-                                            type="password"
-                                            disabled={isLoading}
-                                        />
+                                        <div className="relative">
+                                            <Input
+                                                id="password"
+                                                type={showPassword ? "text" : "password"}
+                                                disabled={isLoading}
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                required
+                                                className="pr-10"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+                                                tabIndex={-1}
+                                            >
+                                                {showPassword ? (
+                                                    <EyeOff className="h-4 w-4" />
+                                                ) : (
+                                                    <Eye className="h-4 w-4" />
+                                                )}
+                                            </button>
+                                        </div>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <Checkbox id="remember" />

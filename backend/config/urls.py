@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 
@@ -27,7 +28,13 @@ def health_check(request):
     return JsonResponse({'status': 'healthy'})
 
 
+def root_redirect(request):
+    """Redirect root to Django admin panel."""
+    return redirect('admin:index')
+
+
 urlpatterns = [
+    path('', root_redirect, name='root'),
     path('admin/', admin.site.urls),
     path('api/health/', health_check, name='health-check'),
 

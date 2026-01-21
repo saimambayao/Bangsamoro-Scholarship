@@ -1,9 +1,32 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.views import APIView
+from drf_spectacular.utils import extend_schema
 from apps.core.views import BaseTenantMixin
 from .models import User, ScholarProfile
-from .serializers import UserSerializer, ScholarProfileSerializer, RegisterSerializer
+from .serializers import UserSerializer, ScholarProfileSerializer, RegisterSerializer, LoginSerializer
+
+
+class LoginView(APIView):
+    """API endpoint for user login with email or username."""
+    permission_classes = [permissions.AllowAny]
+
+    @extend_schema(
+        request=LoginSerializer,
+        responses={200: UserSerializer},
+        description="Login with email or username and password. Returns auth token and user data."
+    )
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        result = serializer.save()
+
+        user_serializer = UserSerializer(result['user'])
+        return Response({
+            'token': result['token'],
+            'user': user_serializer.data
+        })
 
 class UserViewSet(BaseTenantMixin, viewsets.ModelViewSet):
     """
