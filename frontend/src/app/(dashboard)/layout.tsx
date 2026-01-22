@@ -104,10 +104,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* Desktop Sidebar */}
             <aside className="hidden md:flex w-64 flex-col fixed inset-y-0 z-50 bg-white border-r">
                 <div className="h-16 flex items-center px-6 border-b">
-                    <Link href="/" className="font-bold text-2xl text-emerald-800 flex items-center gap-2">
+                    <Link href="/" className="flex items-center gap-2.5 group">
                         {/* Logo Placeholder */}
-                        <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white text-xs">B</div>
-                        Bangsamoro <span className="text-secondary">Scholarship</span> Portal
+                        <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold shadow-sm flex-shrink-0 group-hover:bg-emerald-700 transition-colors">
+                            B
+                        </div>
+                        <div className="flex flex-col leading-none">
+                            <span className="font-bold text-lg text-emerald-800 tracking-tight">
+                                Bangsamoro
+                            </span>
+                            <span className="text-[10px] uppercase font-extrabold text-secondary tracking-widest mt-0.5">
+                                Scholarship Portal
+                            </span>
+                        </div>
                     </Link>
                 </div>
                 <div className="p-4">
@@ -156,7 +165,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         <div className="relative w-full max-w-sm">
                             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
                             <Input
-                                placeholder="Search applications..."
+                                placeholder="Search scholarships..."
                                 className="pl-9 h-9 bg-slate-50 border-slate-200 focus-visible:ring-emerald-500"
                             />
                         </div>
