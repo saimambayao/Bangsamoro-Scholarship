@@ -83,9 +83,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className={`flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${pathname === item.href
-                                        ? "bg-emerald-100 text-emerald-900"
-                                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                                    className={`flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-colors border ${pathname === item.href
+                                        ? "bg-emerald-50 text-emerald-900 border-emerald-600"
+                                        : "text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-900"
                                         }`}
                                 >
                                     <item.icon className="h-5 w-5" />
@@ -134,9 +134,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all ${pathname === item.href
-                                    ? "bg-emerald-50 text-emerald-700 shadow-sm border border-emerald-100"
-                                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                                className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all border ${pathname === item.href
+                                    ? "bg-emerald-50 text-emerald-700 shadow-sm border-emerald-600"
+                                    : "text-slate-600 border-transparent hover:bg-slate-50 hover:text-slate-900"
                                     }`}
                             >
                                 <item.icon className={`h-4 w-4 ${pathname === item.href ? "text-emerald-600" : "text-slate-400"}`} />
