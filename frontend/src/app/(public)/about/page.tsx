@@ -124,14 +124,14 @@ export default function AboutPage() {
                     <div className="container mx-auto px-4 md:px-6 text-center">
                         <h2 className="text-3xl font-bold text-slate-900 mb-12">Our Partner Agencies</h2>
 
-                        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+                        <div className="flex flex-wrap justify-center gap-8 md:gap-12">
                             {PARTNERS.map((partner, index) => (
-                                <div key={index} className="flex flex-col items-center max-w-[150px]">
-                                    <div className="w-20 h-20 bg-white rounded-full shadow-sm flex items-center justify-center mb-4 border border-slate-100">
-                                        <Building className="h-8 w-8 text-slate-400" /> {/* Placeholder for logo */}
+                                <div key={index} className="flex flex-col items-center max-w-[200px]">
+                                    <div className="w-20 h-20 flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-300">
+                                        <img src={partner.logo} alt={partner.code} className="w-full h-full object-contain" />
                                     </div>
-                                    <span className="font-bold text-slate-800">{partner.code}</span>
-                                    <span className="text-xs text-slate-500 mt-1">{partner.name}</span>
+                                    <span className="text-lg font-bold text-slate-800">{partner.code}</span>
+                                    <span className="text-sm text-slate-500 mt-2 font-medium">{partner.name}</span>
                                 </div>
                             ))}
                         </div>
