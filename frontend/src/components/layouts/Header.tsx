@@ -5,9 +5,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Search, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
+
+    const isActive = (path: string) => pathname === path;
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
@@ -33,16 +37,28 @@ export default function Header() {
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-8">
-                    <Link href="/scholarships" className="text-sm font-medium transition-colors hover:text-primary">
+                    <Link
+                        href="/scholarships"
+                        className={`text-sm font-medium transition-colors hover:text-primary py-2 ${isActive('/scholarships') ? 'border-b-2 border-emerald-900 text-emerald-900' : ''}`}
+                    >
                         Scholarships
                     </Link>
-                    <Link href="/success-stories" className="text-sm font-medium transition-colors hover:text-primary">
+                    <Link
+                        href="/success-stories"
+                        className={`text-sm font-medium transition-colors hover:text-primary py-2 ${isActive('/success-stories') ? 'border-b-2 border-emerald-900 text-emerald-900' : ''}`}
+                    >
                         Success Stories
                     </Link>
-                    <Link href="/about" className="text-sm font-medium transition-colors hover:text-primary">
+                    <Link
+                        href="/about"
+                        className={`text-sm font-medium transition-colors hover:text-primary py-2 ${isActive('/about') ? 'border-b-2 border-emerald-900 text-emerald-900' : ''}`}
+                    >
                         About
                     </Link>
-                    <Link href="/contact" className="text-sm font-medium transition-colors hover:text-primary">
+                    <Link
+                        href="/contact"
+                        className={`text-sm font-medium transition-colors hover:text-primary py-2 ${isActive('/contact') ? 'border-b-2 border-emerald-900 text-emerald-900' : ''}`}
+                    >
                         Contact
                     </Link>
                 </nav>
