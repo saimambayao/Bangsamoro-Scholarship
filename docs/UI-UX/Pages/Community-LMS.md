@@ -12,10 +12,11 @@ Wireframes for **Community Features** (FR-2.2, FR-2.3) and **Learning Management
 | 2 | Post Detail | `/dashboard/community/posts/[id]` | FR-2.3 (Community) | - [x] |
 | 3 | Scholar Directory | `/dashboard/community/scholars` | FR-2.2 (Networking) | - [x] |
 | 4 | Scholar Public Profile | `/dashboard/community/scholars/[id]` | FR-2.1 (Profiles) | - [x] |
-| 5 | My Connections | `/dashboard/community/connections` | FR-2.2.2 (Connections) | - [x] |
-| 6 | Groups | `/dashboard/community/groups` | FR-2.3 (Community) | - [x] |
-| 7 | Group Detail | `/dashboard/community/groups/[id]` | FR-2.3 (Community) | - [x] |
-| 8 | Events Calendar | `/dashboard/community/events` | FR-2.3 (Community) | - [x] |
+| 5 | Direct Messaging | `/dashboard/messages` | FR-2.2.3 (Messaging) | - [ ] |
+| 6 | My Connections | `/dashboard/community/connections` | FR-2.2.2 (Connections) | - [x] |
+| 7 | Groups | `/dashboard/community/groups` | FR-2.3 (Community) | - [x] |
+| 8 | Group Detail | `/dashboard/community/groups/[id]` | FR-2.3 (Community) | - [x] |
+| 9 | Events Calendar | `/dashboard/community/events` | FR-2.3 (Community) | - [x] |
 
 ## 📚 LMS Features (Phase 4)
 
