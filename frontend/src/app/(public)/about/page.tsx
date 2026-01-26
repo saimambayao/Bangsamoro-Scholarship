@@ -25,7 +25,7 @@ export default function AboutPage() {
                     </div>
                     <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
                         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-                            Bridging Opportunities and the Bangsamoro Youth
+                            Bridging Opportunities and the <span className="text-amber-400">Bangsamoro</span> Youth
                         </h1>
                         <p className="text-xl md:text-2xl text-emerald-100 max-w-3xl mx-auto leading-relaxed">
                             Connecting students with opportunities to build a brighter future for the region.
@@ -84,33 +84,33 @@ export default function AboutPage() {
                         <div className="grid md:grid-cols-3 gap-8">
                             <Card className="border-none shadow-none bg-transparent">
                                 <CardContent className="p-0 text-center">
-                                    <div className="w-16 h-16 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center mb-6 text-emerald-600">
-                                        <Search className="h-8 w-8" />
+                                    <div className="mx-auto flex items-center justify-center mb-6 text-emerald-600">
+                                        <Search className="h-10 w-10" />
                                     </div>
                                     <h3 className="text-xl font-bold text-slate-900 mb-3">Smart Matchmaking</h3>
-                                    <p className="text-slate-600 leading-relaxed">
+                                    <p className="text-slate-600 leading-relaxed text-justify">
                                         Our platform automatically matches your profile with scholarships you are eligible for, saving you time and effort.
                                     </p>
                                 </CardContent>
                             </Card>
                             <Card className="border-none shadow-none bg-transparent">
                                 <CardContent className="p-0 text-center">
-                                    <div className="w-16 h-16 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center mb-6 text-emerald-600">
-                                        <ClipboardList className="h-8 w-8" />
+                                    <div className="mx-auto flex items-center justify-center mb-6 text-emerald-600">
+                                        <ClipboardList className="h-10 w-10" />
                                     </div>
                                     <h3 className="text-xl font-bold text-slate-900 mb-3">Streamlined Application</h3>
-                                    <p className="text-slate-600 leading-relaxed">
+                                    <p className="text-slate-600 leading-relaxed text-justify">
                                         Apply to multiple programs with a single profile. Track your application status in real-time and receive automated updates.
                                     </p>
                                 </CardContent>
                             </Card>
                             <Card className="border-none shadow-none bg-transparent">
                                 <CardContent className="p-0 text-center">
-                                    <div className="w-16 h-16 mx-auto bg-emerald-100 rounded-2xl flex items-center justify-center mb-6 text-emerald-600">
-                                        <Users className="h-8 w-8" />
+                                    <div className="mx-auto flex items-center justify-center mb-6 text-emerald-600">
+                                        <Users className="h-10 w-10" />
                                     </div>
                                     <h3 className="text-xl font-bold text-slate-900 mb-3">Community & Support</h3>
-                                    <p className="text-slate-600 leading-relaxed">
+                                    <p className="text-slate-600 leading-relaxed text-justify">
                                         Join a thriving community of scholars. Access mentorship programs, peer networks, and academic resources.
                                     </p>
                                 </CardContent>
