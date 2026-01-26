@@ -274,11 +274,11 @@ export const SUCCESS_STORIES = [
 ];
 
 export const PARTNERS = [
-    { code: "MBHTE", name: "Ministry of Basic, Higher & Technical Education" },
-    { code: "MOST", name: "Ministry of Science & Technology" },
-    { code: "MOH", name: "Ministry of Health" },
-    { code: "CHED", name: "Commission on Higher Education" },
-    { code: "TESDA", name: "Technical Education and Skills Development Authority" },
+    { code: "MBHTE", name: "Ministry of Basic, Higher & Technical Education", logo: "/images/providers/mbhte.png" },
+    { code: "MOST", name: "Ministry of Science & Technology", logo: "/images/providers/most.png" },
+    { code: "MOH", name: "Ministry of Health", logo: "/images/providers/moh.png" },
+    { code: "CHED", name: "Commission on Higher Education", logo: "/images/providers/ched.png" },
+    { code: "TESDA", name: "Technical Education and Skills Development Authority", logo: "/images/providers/tesda.png" },
 ];
 
 export const FAQS = [
