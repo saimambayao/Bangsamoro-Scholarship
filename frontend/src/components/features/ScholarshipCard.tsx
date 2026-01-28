@@ -3,12 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, MapPin, GraduationCap, Tag } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface ScholarshipCardProps {
     scholarship: {
         id: string;
         title: string;
         provider: string;
+        providerFull: string;
         amount: string;
         deadline: string;
         status: string;
@@ -20,7 +22,25 @@ interface ScholarshipCardProps {
 
 export default function ScholarshipCard({ scholarship }: ScholarshipCardProps) {
     return (
-        <div className="group relative rounded-3xl border border-slate-200 bg-white p-2 shadow-sm transition-all duration-300 ease-out hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-2 hover:border-slate-300 overflow-hidden">
+        <motion.div
+            whileHover={{
+                scale: 1.02,
+                y: -10,
+                boxShadow: "0 25px 50px rgba(197, 160, 32, 0.4)",
+                borderColor: "#c5a020",
+                backgroundColor: "rgba(197, 160, 32, 0.02)"
+            }}
+            whileTap={{ scale: 0.98 }}
+            transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 30,
+                boxShadow: { duration: 0.5 },
+                borderColor: { duration: 0.5 },
+                backgroundColor: { duration: 0.5 }
+            }}
+            className="group relative rounded-3xl border border-slate-200 bg-white p-2 shadow-sm overflow-hidden cursor-pointer"
+        >
             {/* Background Logo Watermark - Centered with Original Colors at 30% Opacity */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 opacity-[0.3] pointer-events-none z-0 group-hover:opacity-[0.45] transition-opacity duration-500">
                 <img src={scholarship.logo} alt="" className="w-full h-full object-contain" />
@@ -28,9 +48,14 @@ export default function ScholarshipCard({ scholarship }: ScholarshipCardProps) {
 
             <div className="flex flex-col h-full p-6 relative z-10">
                 <div className="mb-6 flex items-start justify-between">
-                    <span className="text-lg font-bold text-primary">
-                        {scholarship.provider}
-                    </span>
+                    <div className="flex flex-col">
+                        <span className="text-lg font-bold text-primary">
+                            {scholarship.provider}
+                        </span>
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 leading-tight">
+                            {scholarship.providerFull}
+                        </span>
+                    </div>
                     <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold transition-transform duration-300 group-hover:scale-105 ${scholarship.status === 'Open' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
                         }`}>
                         <Tag className="h-3 w-3" /> {scholarship.status}
@@ -68,6 +93,6 @@ export default function ScholarshipCard({ scholarship }: ScholarshipCardProps) {
                     </Link>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
