@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Search, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,51 +17,74 @@ export default function Header() {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
             <div className="container mx-auto flex h-20 items-center justify-between px-4">
-                {/* Logo */}
-                <Link href="/" className="flex items-center gap-2">
-                    <Image
-                        src="/images/logo.png"
-                        alt="Bangsamoro Scholarship Portal Logo"
-                        width={50}
-                        height={50}
-                        className="rounded-full"
-                    />
+                {/* Logo and Branding with Gold Fade Animation */}
+                <Link href="/" className="flex items-center gap-2 group">
+                    <motion.div
+                        whileHover={{
+                            scale: 1.05,
+                            filter: "drop-shadow(0 0 12px rgba(197, 160, 32, 0.6))"
+                        }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className="relative"
+                    >
+                        <Image
+                            src="/images/logo.png"
+                            alt="Bangsamoro Scholarship Portal Logo"
+                            width={54}
+                            height={54}
+                            className="rounded-full shadow-sm"
+                        />
+                    </motion.div>
+
                     <div className="flex flex-col">
-                        <span className="text-2xl font-bold tracking-tight text-foreground">
+                        <motion.h2
+                            whileHover={{ color: "#c5a020" }}
+                            transition={{ duration: 0.4 }}
+                            className="text-xl font-black tracking-tight text-slate-900 group-hover:text-secondary transition-colors leading-none"
+                        >
                             Bangsamoro
-                        </span>
-                        <span className="text-sm font-bold tracking-wide text-foreground">
-                            <span className="uppercase text-secondary">Scholarship</span> Portal
-                        </span>
+                        </motion.h2>
+                        <motion.div
+                            className="flex items-center gap-1 mt-0.5"
+                            whileHover={{ color: "#c5a020" }}
+                            transition={{ duration: 0.4 }}
+                        >
+                            <span className="text-[11px] font-black uppercase text-secondary tracking-[0.2em]">Scholarship</span>
+                            <span className="text-[11px] font-black text-slate-900 group-hover:text-secondary transition-colors">Portal</span>
+                        </motion.div>
                     </div>
                 </Link>
 
-                {/* Desktop Nav */}
+                {/* Desktop Nav with Sliding Active Indicator */}
                 <nav className="hidden md:flex items-center gap-8">
-                    <Link
-                        href="/scholarships"
-                        className={`text-sm font-medium transition-colors hover:text-primary py-2 ${isActive('/scholarships') ? 'border-b-2 border-emerald-900 text-emerald-900' : ''}`}
-                    >
-                        Scholarships
-                    </Link>
-                    <Link
-                        href="/success-stories"
-                        className={`text-sm font-medium transition-colors hover:text-primary py-2 ${isActive('/success-stories') ? 'border-b-2 border-emerald-900 text-emerald-900' : ''}`}
-                    >
-                        Success Stories
-                    </Link>
-                    <Link
-                        href="/about"
-                        className={`text-sm font-medium transition-colors hover:text-primary py-2 ${isActive('/about') ? 'border-b-2 border-emerald-900 text-emerald-900' : ''}`}
-                    >
-                        About
-                    </Link>
-                    <Link
-                        href="/contact"
-                        className={`text-sm font-medium transition-colors hover:text-primary py-2 ${isActive('/contact') ? 'border-b-2 border-emerald-900 text-emerald-900' : ''}`}
-                    >
-                        Contact
-                    </Link>
+                    {[
+                        { name: "Scholarships", href: "/scholarships" },
+                        { name: "Success Stories", href: "/success-stories" },
+                        { name: "About", href: "/about" },
+                        { name: "Contact", href: "/contact" },
+                    ].map((item) => (
+                        <Link
+                            key={item.name}
+                            href={item.href}
+                            className="relative py-2 group"
+                        >
+                            <span className={`text-sm font-bold transition-colors duration-300 ${isActive(item.href) ? "text-primary" : "text-slate-600 hover:text-primary"
+                                }`}>
+                                {item.name}
+                            </span>
+
+                            {/* Animated Underline */}
+                            {isActive(item.href) ? (
+                                <motion.div
+                                    layoutId="header-active-link"
+                                    className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary rounded-full"
+                                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                                />
+                            ) : (
+                                <div className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+                            )}
+                        </Link>
+                    ))}
                 </nav>
 
                 {/* Action Buttons */}
