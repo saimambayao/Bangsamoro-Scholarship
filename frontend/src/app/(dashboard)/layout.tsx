@@ -18,6 +18,7 @@ import {
     Search,
     Bookmark
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -129,20 +130,42 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         Browse Scholarships
                     </Button>
 
-                    <nav className="flex flex-col gap-1">
-                        {sidebarNavItems.map((item) => (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all border ${pathname === item.href
-                                    ? "bg-emerald-50 text-emerald-700 shadow-sm border-emerald-600"
-                                    : "text-slate-600 border-transparent hover:bg-slate-50 hover:text-slate-900"
-                                    }`}
-                            >
-                                <item.icon className={`h-4 w-4 ${pathname === item.href ? "text-emerald-600" : "text-slate-400"}`} />
-                                {item.title}
-                            </Link>
-                        ))}
+                    <nav className="flex flex-col gap-1 relative">
+                        {sidebarNavItems.map((item) => {
+                            const active = pathname === item.href;
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className="relative"
+                                >
+                                    <div
+                                        className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-bold transition-all ${active
+                                            ? "text-emerald-700"
+                                            : "text-slate-500 hover:text-emerald-600 hover:bg-emerald-50/50"
+                                            }`}
+                                    >
+                                        <item.icon className={`h-4 w-4 transition-colors ${active ? "text-emerald-600" : "text-slate-400"}`} />
+                                        {item.title}
+                                    </div>
+
+                                    {active && (
+                                        <motion.div
+                                            layoutId="sidebar-active-indicator"
+                                            className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-gradient-to-b from-emerald-600 to-secondary rounded-full"
+                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                        />
+                                    )}
+                                    {active && (
+                                        <motion.div
+                                            layoutId="sidebar-active-bg"
+                                            className="absolute inset-0 bg-emerald-50/60 -z-10 rounded-md"
+                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                        />
+                                    )}
+                                </Link>
+                            );
+                        })}
                     </nav>
                 </div>
                 <div className="mt-auto p-4 border-t bg-slate-50/50">
