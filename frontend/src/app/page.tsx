@@ -102,23 +102,17 @@ export default function Home() {
             </div>
 
             <div className="relative w-full flex justify-center lg:col-span-7">
-              <div
-                className="relative w-full max-w-2xl aspect-[4/3] group scale-110 md:scale-125"
-                style={{
-                  maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent), linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
-                  WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent), linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
-                  maskComposite: 'intersect',
-                  WebkitMaskComposite: 'source-in'
-                }}
-              >
+              <div className="relative w-full max-w-xl aspect-[3/4] group">
                 <img
                   src="/images/top-scholar-sittie-new.jpg"
-                  alt="Sittie Nor-Ashya A. Aliponto - Top 7 NLE 2025"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  alt="Maria Santos, RN - Top Performing Scholar 2025"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-lg shadow-2xl"
                 />
 
+
+
                 {/* Text overlay at bottom */}
-                <div className="absolute bottom-16 left-0 right-0 text-center z-30 pointer-events-none">
+                <div className="absolute bottom-8 left-0 right-0 text-center z-30 pointer-events-none">
                   <h4 className="text-2xl font-bold uppercase tracking-widest text-white drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">
                     2025 Top Performing Scholar
                   </h4>
