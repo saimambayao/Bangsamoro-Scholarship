@@ -8,7 +8,7 @@ export default function PartnerMarquee() {
     const quadruplePartners = [...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS];
 
     return (
-        <section className="pt-6 pb-2 overflow-hidden relative">
+        <section className="pt-6 pb-2 overflow-hidden relative bg-white">
             <div className="container mx-auto px-4 text-center">
                 <h2 className="text-2xl font-bold uppercase tracking-[0.3em] text-muted-foreground mb-4">Trusted Partners</h2>
 
@@ -37,7 +37,7 @@ export default function PartnerMarquee() {
                                     <img
                                         src={partner.logo}
                                         alt={partner.code}
-                                        className="object-contain w-full h-full mix-blend-multiply"
+                                        className="object-contain w-full h-full"
                                     />
                                 </div>
                             </div>
