@@ -119,7 +119,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             <span className="font-bold text-base text-slate-900 tracking-tight truncate">
                                 Bangsamoro
                             </span>
-                            <span className="text-[10px] uppercase font-extrabold text-slate-900 tracking-wider truncate">
+                            <span className="text-[10px] uppercase font-bold text-slate-900 tracking-wider truncate">
                                 <span className="text-secondary">Scholarship</span> Portal
                             </span>
                         </div>
