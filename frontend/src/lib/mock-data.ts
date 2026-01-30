@@ -237,7 +237,7 @@ export const STATS = [
 export const SUCCESS_STORIES = [
     {
         id: "1",
-        name: "Morcid Nuno, RN",
+        name: "Maria Santos, RN",
         role: "AHME Scholar 2020-2024",
         school: "Notre Dame University",
         program: "BS Nursing",
@@ -357,7 +357,7 @@ export const POSTS = [
 export const SCHOLARS_DIRECTORY = [
     {
         id: "scholar-1",
-        name: "Morcid Nuno, RN",
+        name: "Maria Santos, RN",
         avatar: "/images/scholars/maria_santos.png",
         program: "BS Nursing",
         school: "Notre Dame University",
