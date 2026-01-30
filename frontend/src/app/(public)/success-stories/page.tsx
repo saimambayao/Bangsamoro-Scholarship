@@ -43,6 +43,7 @@ export default function SuccessStoriesPage() {
                                         alt={featuredStory.name}
                                         fill
                                         className="object-cover object-top transition-transform duration-700 hover:scale-105"
+                                    />
                                 </div>
                                 <div className="p-6 md:p-10 flex flex-col justify-center">
                                     <div className="mb-4">
