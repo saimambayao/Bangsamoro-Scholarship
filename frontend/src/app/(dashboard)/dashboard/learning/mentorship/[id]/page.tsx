@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
 import { MENTORS, COURSES } from "@/lib/mock-data";
 import { Star, MessageSquare, Calendar, Video, Clock, MapPin, Briefcase, GraduationCap, ArrowLeft, CheckCircle } from "lucide-react";
 import Link from "next/link";
