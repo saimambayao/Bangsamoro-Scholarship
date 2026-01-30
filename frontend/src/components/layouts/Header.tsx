@@ -40,7 +40,7 @@ export default function Header() {
                         <motion.h2
                             whileHover={{ color: "#c5a020" }}
                             transition={{ duration: 0.4 }}
-                            className="text-xl font-black tracking-tight text-slate-900 group-hover:text-secondary transition-colors leading-none"
+                            className="text-xl font-bold tracking-tight text-slate-900 group-hover:text-secondary transition-colors leading-none"
                         >
                             Bangsamoro
                         </motion.h2>
@@ -49,8 +49,8 @@ export default function Header() {
                             whileHover={{ color: "#c5a020" }}
                             transition={{ duration: 0.4 }}
                         >
-                            <span className="text-[11px] font-black uppercase text-secondary tracking-[0.2em]">Scholarship</span>
-                            <span className="text-[11px] font-black text-slate-900 group-hover:text-secondary transition-colors">Portal</span>
+                            <span className="text-[11px] font-bold uppercase text-secondary tracking-[0.2em]">Scholarship</span>
+                            <span className="text-[11px] font-bold text-slate-900 group-hover:text-secondary transition-colors">Portal</span>
                         </motion.div>
                     </div>
                 </Link>
