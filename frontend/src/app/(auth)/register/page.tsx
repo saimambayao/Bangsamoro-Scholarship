@@ -114,41 +114,38 @@ export default function RegisterPage() {
             </motion.div>
 
             {/* Right Side - Form (Clean & Premium) */}
-            <div className="flex-1 flex flex-col items-center justify-start pt-12 md:pt-24 px-8 pb-8 bg-slate-50/50 overflow-y-auto">
+            <div className="flex-1 flex flex-col items-center justify-center pt-8 md:pt-0 px-6 pb-8 bg-slate-50/50 overflow-hidden">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                    className="w-full max-w-md"
+                    className="w-full max-w-[500px]"
                 >
                     <Card className="border-0 shadow-none bg-transparent">
-                        <CardHeader className="space-y-3 px-0 mb-10">
-                            <CardTitle className="text-5xl font-black tracking-tighter text-slate-900 leading-none">Apply for Account</CardTitle>
-                            <CardDescription className="text-slate-500 font-bold text-lg tracking-tight">
-                                Join the community of future leaders
-                            </CardDescription>
+                        <CardHeader className="space-y-3 px-0 mb-6 text-center">
+                            <CardTitle className="text-4xl font-medium tracking-tighter text-slate-900 leading-none">Sign Up</CardTitle>
                         </CardHeader>
                         <CardContent className="px-0">
                             <motion.div
                                 variants={containerVariants}
                                 initial="hidden"
                                 animate="visible"
-                                className="grid gap-8"
+                                className="grid gap-6"
                             >
                                 <form onSubmit={onSubmit}>
                                     <div className="grid gap-6">
                                         <div className="grid grid-cols-2 gap-4">
                                             <motion.div variants={itemVariants} className="grid gap-2.5">
-                                                <Label htmlFor="first-name" className="text-slate-800 font-black uppercase text-[10px] tracking-widest ml-1">First name</Label>
-                                                <Input id="first-name" placeholder="Juan" required disabled={isLoading} className="h-14 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-2xl transition-all duration-300 font-bold text-slate-700 placeholder:text-slate-300" />
+                                                <Label htmlFor="first-name" className="text-slate-700 font-medium text-sm ml-1">First name</Label>
+                                                <Input id="first-name" placeholder="Juan" required disabled={isLoading} className="h-11 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-lg transition-all duration-300 font-medium text-base text-slate-700 placeholder:text-slate-300" />
                                             </motion.div>
                                             <motion.div variants={itemVariants} className="grid gap-2.5">
-                                                <Label htmlFor="last-name" className="text-slate-800 font-black uppercase text-[10px] tracking-widest ml-1">Last name</Label>
-                                                <Input id="last-name" placeholder="Dela Cruz" required disabled={isLoading} className="h-14 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-2xl transition-all duration-300 font-bold text-slate-700 placeholder:text-slate-300" />
+                                                <Label htmlFor="last-name" className="text-slate-700 font-medium text-sm ml-1">Last name</Label>
+                                                <Input id="last-name" placeholder="Dela Cruz" required disabled={isLoading} className="h-11 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-lg transition-all duration-300 font-medium text-base text-slate-700 placeholder:text-slate-300" />
                                             </motion.div>
                                         </div>
                                         <motion.div variants={itemVariants} className="grid gap-2.5">
-                                            <Label htmlFor="email" className="text-slate-800 font-black uppercase text-[10px] tracking-widest ml-1">Email Address</Label>
+                                            <Label htmlFor="email" className="text-slate-700 font-medium text-sm ml-1">Email Address</Label>
                                             <Input
                                                 id="email"
                                                 placeholder="name@example.com"
@@ -157,24 +154,25 @@ export default function RegisterPage() {
                                                 autoComplete="email"
                                                 autoCorrect="off"
                                                 disabled={isLoading}
-                                                className="h-14 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-2xl transition-all duration-300 font-bold text-slate-700 placeholder:text-slate-300"
+                                                className="h-11 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-lg transition-all duration-300 font-medium text-base text-slate-700 placeholder:text-slate-300"
                                             />
                                         </motion.div>
                                         <motion.div variants={itemVariants} className="grid gap-2.5">
-                                            <Label htmlFor="password" title="password" className="text-slate-800 font-black uppercase text-[10px] tracking-widest ml-1">Password</Label>
-                                            <Input id="password" type="password" placeholder="••••••••" disabled={isLoading} className="h-14 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-2xl transition-all duration-300 font-bold text-slate-700 placeholder:tracking-widest" />
-                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest ml-1">Security: Minimum 8 characters</p>
+                                            <Label htmlFor="password" title="password" className="text-slate-700 font-medium text-sm ml-1">Password</Label>
+                                            <Input id="password" type="password" placeholder="••••••••" disabled={isLoading} className="h-11 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-lg transition-all duration-300 font-medium text-base text-slate-700 placeholder:tracking-widest" />
+                                            <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest ml-1">Security: Minimum 8 characters</p>
                                         </motion.div>
 
                                         <motion.div variants={itemVariants} className="pt-2">
                                             <Button
+                                                variant="outline"
                                                 disabled={isLoading}
-                                                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black h-14 rounded-2xl shadow-xl shadow-emerald-200 transition-all duration-300 active:scale-[0.98] text-base"
+                                                className="w-full border-emerald-500/30 text-emerald-600 font-medium h-11 rounded-lg transition-all duration-300 active:scale-[0.98] text-sm hover:bg-emerald-50 hover:text-emerald-700"
                                             >
                                                 {isLoading ? (
-                                                    <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+                                                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                                                 ) : (
-                                                    "Create Scholar Account"
+                                                    "Sign Up Now"
                                                 )}
                                             </Button>
                                         </motion.div>
@@ -185,7 +183,7 @@ export default function RegisterPage() {
                                     <div className="absolute inset-0 flex items-center">
                                         <span className="w-full border-t border-slate-100" />
                                     </div>
-                                    <div className="relative flex justify-center text-[9px] font-black uppercase tracking-[0.3em]">
+                                    <div className="relative flex justify-center text-[9px] font-medium uppercase tracking-[0.3em]">
                                         <span className="bg-slate-50/50 px-4 text-slate-300">Or integrate with</span>
                                     </div>
                                 </motion.div>
@@ -195,25 +193,25 @@ export default function RegisterPage() {
                                         variant="outline"
                                         type="button"
                                         disabled={isLoading}
-                                        className="w-full border-slate-200 text-slate-600 font-black h-14 rounded-2xl hover:bg-white hover:border-slate-300 hover:shadow-lg hover:shadow-slate-100 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-3"
+                                        className="w-full border-slate-100 text-slate-600 font-medium h-11 rounded-lg hover:bg-white hover:border-slate-300 hover:shadow-lg hover:shadow-slate-100 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-3 text-sm"
                                     >
                                         <svg className="h-5 w-5" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
                                             <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
                                         </svg>
-                                        <span className="uppercase tracking-widest text-xs">Sign up with Google</span>
+                                        <span className="uppercase tracking-widest text-[10px]">Sign up with Google</span>
                                     </Button>
                                 </motion.div>
                             </motion.div>
                         </CardContent>
-                        <CardFooter className="flex flex-col space-y-6 px-0 mt-12">
+                        <CardFooter className="flex flex-col space-y-4 px-0 mt-8">
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1.2 }}
-                                className="text-center text-sm font-bold text-slate-400"
+                                className="text-center text-sm font-medium text-slate-400"
                             >
                                 Already have a scholar account?{" "}
-                                <Link href="/login" className="font-black text-emerald-600 hover:text-emerald-700 underline underline-offset-8 decoration-emerald-200/50 hover:decoration-emerald-500 transition-all duration-300">
+                                <Link href="/login" className="font-medium text-emerald-600 hover:text-emerald-700 underline underline-offset-8 decoration-emerald-200/50 hover:decoration-emerald-500 transition-all duration-300">
                                     Sign in here
                                 </Link>
                             </motion.div>
@@ -221,7 +219,7 @@ export default function RegisterPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 0.4 }}
                                 transition={{ delay: 1.4 }}
-                                className="px-12 text-center text-[10px] font-bold text-slate-400 leading-relaxed uppercase tracking-widest"
+                                className="px-12 text-center text-[10px] font-medium text-slate-400 leading-relaxed uppercase tracking-widest"
                             >
                                 By continuing, you agree to our{" "}
                                 <Link href="/terms" className="underline underline-offset-4 hover:text-slate-900 transition-colors">
