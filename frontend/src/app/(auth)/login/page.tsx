@@ -139,26 +139,20 @@ export default function LoginPage() {
             </motion.div>
 
             {/* Right Side - Form (Clean & Premium) */}
-            <div className="flex-1 flex flex-col items-center justify-start pt-12 md:pt-24 px-8 pb-8 bg-slate-50/50 overflow-y-auto">
+            <div className="flex-1 flex flex-col items-center justify-center pt-8 md:pt-0 px-6 pb-8 bg-slate-50/50 overflow-hidden">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                    className="w-full max-w-md"
+                    className="w-full max-w-[500px]"
                 >
                     <Card className="border-0 shadow-none bg-transparent">
-                        <CardHeader className="space-y-3 px-0 mb-10 text-center">
-                            <CardTitle className="text-6xl font-medium tracking-tighter text-slate-900 leading-none">Welcome back</CardTitle>
-                            <CardDescription className="text-slate-500 font-medium text-xl tracking-tight text-center">
-                                Sign in to your scholar account
-                            </CardDescription>
-                        </CardHeader>
                         <CardContent className="px-0">
                             <motion.div
                                 variants={containerVariants}
                                 initial="hidden"
                                 animate="visible"
-                                className="grid gap-8"
+                                className="grid gap-6"
                             >
                                 {error && (
                                     <motion.div variants={itemVariants}>
@@ -272,7 +266,7 @@ export default function LoginPage() {
                             >
                                 Not a registered scholar yet?{" "}
                                 <Link href="/register" className="font-medium text-emerald-600 hover:text-emerald-700 underline underline-offset-8 decoration-emerald-200/50 hover:decoration-emerald-500 transition-all duration-300">
-                                    Apply for Account
+                                    Sign Up
                                 </Link>
                             </motion.div>
                         </CardFooter>
