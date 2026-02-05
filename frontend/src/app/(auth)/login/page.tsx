@@ -147,9 +147,9 @@ export default function LoginPage() {
                     className="w-full max-w-md"
                 >
                     <Card className="border-0 shadow-none bg-transparent">
-                        <CardHeader className="space-y-3 px-0 mb-10">
-                            <CardTitle className="text-5xl font-black tracking-tighter text-slate-900 leading-none">Welcome back</CardTitle>
-                            <CardDescription className="text-slate-500 font-bold text-lg tracking-tight">
+                        <CardHeader className="space-y-3 px-0 mb-10 text-center">
+                            <CardTitle className="text-6xl font-medium tracking-tighter text-slate-900 leading-none">Welcome back</CardTitle>
+                            <CardDescription className="text-slate-500 font-medium text-xl tracking-tight text-center">
                                 Sign in to your scholar account
                             </CardDescription>
                         </CardHeader>
@@ -171,7 +171,7 @@ export default function LoginPage() {
                                 <form onSubmit={onSubmit}>
                                     <div className="grid gap-6">
                                         <motion.div variants={itemVariants} className="grid gap-2.5">
-                                            <Label htmlFor="username" className="text-slate-800 font-black uppercase text-[10px] tracking-widest ml-1">Email or Username</Label>
+                                            <Label htmlFor="username" className="text-slate-700 font-medium text-sm ml-1">Email or Username</Label>
                                             <Input
                                                 id="username"
                                                 placeholder="Enter your credential"
@@ -183,15 +183,12 @@ export default function LoginPage() {
                                                 value={username}
                                                 onChange={(e) => setUsername(e.target.value)}
                                                 required
-                                                className="h-14 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-2xl transition-all duration-300 font-bold text-slate-700 placeholder:text-slate-300 placeholder:font-medium"
+                                                className="h-12 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-xl transition-all duration-300 font-medium text-base text-slate-700 placeholder:text-slate-300"
                                             />
                                         </motion.div>
-                                        <motion.div variants={itemVariants} className="grid gap-2.5">
-                                            <div className="flex items-center justify-between ml-1">
-                                                <Label htmlFor="password" title="password" className="text-slate-800 font-black uppercase text-[10px] tracking-widest">Password</Label>
-                                                <Link href="/forgot-password" title="password" className="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors">
-                                                    Forgot?
-                                                </Link>
+                                        <motion.div variants={itemVariants} className="grid gap-2">
+                                            <div className="ml-1">
+                                                <Label htmlFor="password" title="password" className="text-slate-700 font-medium text-sm">Password</Label>
                                             </div>
                                             <div className="relative group">
                                                 <Input
@@ -202,7 +199,7 @@ export default function LoginPage() {
                                                     placeholder="••••••••"
                                                     onChange={(e) => setPassword(e.target.value)}
                                                     required
-                                                    className="h-14 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-2xl transition-all duration-300 pr-14 font-bold text-slate-700 placeholder:tracking-widest"
+                                                    className="h-12 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-xl transition-all duration-300 pr-14 font-medium text-base text-slate-700 placeholder:tracking-widest"
                                                 />
                                                 <button
                                                     type="button"
@@ -217,24 +214,20 @@ export default function LoginPage() {
                                                     )}
                                                 </button>
                                             </div>
-                                        </motion.div>
-
-                                        <motion.div variants={itemVariants} className="flex items-center justify-between pt-1">
-                                            <div className="flex items-center space-x-2.5 ml-1">
-                                                <Checkbox id="remember" className="h-5 w-5 rounded-lg border-2 border-slate-200 data-[state=checked]:bg-emerald-600 data-[state=checked]:border-emerald-600 transition-all duration-300" />
-                                                <label
-                                                    htmlFor="remember"
-                                                    className="text-[13px] font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-slate-500"
-                                                >
-                                                    Keep me logged in
-                                                </label>
+                                            <div className="flex justify-center">
+                                                <Link href="/forgot-password" title="password" className="text-xs font-medium text-emerald-600 hover:text-emerald-700 transition-colors">
+                                                    Forgot?
+                                                </Link>
                                             </div>
                                         </motion.div>
 
+
+
                                         <motion.div variants={itemVariants} className="pt-2">
                                             <Button
+                                                variant="outline"
                                                 disabled={isLoading}
-                                                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black h-14 rounded-2xl shadow-xl shadow-emerald-200 transition-all duration-300 active:scale-[0.98] text-base"
+                                                className="w-full border-emerald-500/30 text-emerald-600 font-medium h-11 rounded-lg transition-all duration-300 active:scale-[0.98] text-sm hover:bg-emerald-50 hover:text-emerald-700"
                                             >
                                                 {isLoading ? (
                                                     <Loader2 className="mr-2 h-6 w-6 animate-spin" />
@@ -250,7 +243,7 @@ export default function LoginPage() {
                                     <div className="absolute inset-0 flex items-center">
                                         <span className="w-full border-t border-slate-100" />
                                     </div>
-                                    <div className="relative flex justify-center text-[9px] font-black uppercase tracking-[0.3em]">
+                                    <div className="relative flex justify-center text-[9px] font-medium uppercase tracking-[0.3em]">
                                         <span className="bg-slate-50/50 px-4 text-slate-300">Or integrate with</span>
                                     </div>
                                 </motion.div>
@@ -260,7 +253,7 @@ export default function LoginPage() {
                                         variant="outline"
                                         type="button"
                                         disabled={isLoading}
-                                        className="w-full border-slate-200 text-slate-600 font-black h-14 rounded-2xl hover:bg-white hover:border-slate-300 hover:shadow-lg hover:shadow-slate-100 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-3"
+                                        className="w-full border-slate-100 text-slate-600 font-medium h-11 rounded-lg hover:bg-white hover:border-slate-300 hover:shadow-lg hover:shadow-slate-100 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-3 text-sm"
                                     >
                                         <svg className="h-5 w-5" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
                                             <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
@@ -275,10 +268,10 @@ export default function LoginPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1.2 }}
-                                className="text-center text-sm font-bold text-slate-400"
+                                className="text-center text-sm font-medium text-slate-400"
                             >
                                 Not a registered scholar yet?{" "}
-                                <Link href="/register" className="font-black text-emerald-600 hover:text-emerald-700 underline underline-offset-8 decoration-emerald-200/50 hover:decoration-emerald-500 transition-all duration-300">
+                                <Link href="/register" className="font-medium text-emerald-600 hover:text-emerald-700 underline underline-offset-8 decoration-emerald-200/50 hover:decoration-emerald-500 transition-all duration-300">
                                     Apply for Account
                                 </Link>
                             </motion.div>
