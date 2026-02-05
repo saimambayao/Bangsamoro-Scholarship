@@ -1,9 +1,8 @@
-
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CheckCircle2, FileText, Router, Save, UploadCloud } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, FileText, Router, Save, UploadCloud, AlertCircle, Loader2, PartyPopper, Home } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -44,13 +43,90 @@ const itemVariants = {
 export default function ApplicationFormPage() {
     const params = useParams();
     const [currentStep, setCurrentStep] = useState(1);
+    const [error, setError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [termsAccepted, setTermsAccepted] = useState(false);
+
+    const [formData, setFormData] = useState({
+        // Step 1
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        dob: "",
+        gender: "",
+        region: "",
+        province: "",
+        city: "",
+        barangay: "",
+        street: "",
+        // Step 2
+        fatherName: "",
+        fatherOccupation: "",
+        motherName: "",
+        motherOccupation: "",
+        annualIncome: "",
+        // Step 3
+        school: "",
+        program: "",
+        yearLevel: "",
+        gpa: "",
+        honors: "",
+    });
 
     // Find scholarship details (mock)
     const scholarship = SCHOLARSHIPS.find(s => s.id === params.id) || SCHOLARSHIPS[0];
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        setFormData(prev => ({ ...prev, [id]: value }));
+        if (error) setError(null); // Clear error on type
+    };
+
+    const handleSelectChange = (key: string, value: string) => {
+        setFormData(prev => ({ ...prev, [key]: value }));
+        if (error) setError(null);
+    };
+
+    const validateStep = (step: number) => {
+        if (step === 1) {
+            const required = ['firstName', 'lastName', 'dob', 'gender', 'region', 'province', 'city', 'barangay', 'street'];
+            for (const field of required) {
+                if (!formData[field as keyof typeof formData]) {
+                    return `Please fill out the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`;
+                }
+            }
+        }
+        if (step === 2) {
+            const required = ['fatherName', 'fatherOccupation', 'motherName', 'motherOccupation', 'annualIncome'];
+            for (const field of required) {
+                if (!formData[field as keyof typeof formData]) {
+                    return `Please fill out the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`;
+                }
+            }
+        }
+        if (step === 3) {
+            const required = ['school', 'program', 'yearLevel', 'gpa'];
+            for (const field of required) {
+                if (!formData[field as keyof typeof formData]) {
+                    return `Please fill out the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`;
+                }
+            }
+        }
+        // Step 4 documents validation could go here
+        return null;
+    };
+
     const handleNext = () => {
+        const validationError = validateStep(currentStep);
+        if (validationError) {
+            setError(validationError);
+            return;
+        }
+
         if (currentStep < STEPS.length) {
             setCurrentStep(currentStep + 1);
+            setError(null);
             window.scrollTo(0, 0);
         }
     };
@@ -58,9 +134,83 @@ export default function ApplicationFormPage() {
     const handleBack = () => {
         if (currentStep > 1) {
             setCurrentStep(currentStep - 1);
+            setError(null);
             window.scrollTo(0, 0);
         }
     };
+
+    const handleSubmit = async () => {
+        if (!termsAccepted) {
+            setError("Please accept the terms and conditions to submit your application.");
+            return;
+        }
+
+        setIsSubmitting(true);
+        setError(null);
+
+        // Simulate API call
+        setTimeout(() => {
+            setIsSubmitting(false);
+            setIsSubmitted(true);
+            window.scrollTo(0, 0);
+        }, 3000);
+    };
+
+    if (isSubmitted) {
+        return (
+            <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="max-w-2xl w-full"
+                >
+                    <Card className="border-slate-200 shadow-xl overflow-hidden">
+                        <div className="h-2 bg-emerald-600 w-full" />
+                        <CardContent className="p-8 md:p-12 text-center space-y-8">
+                            <div className="space-y-2 pt-4">
+                                <h1 className="text-3xl font-bold text-slate-900">Application Submitted!</h1>
+                                <p className="text-slate-600 text-lg max-w-md mx-auto">
+                                    Your application for the <span className="font-semibold text-emerald-700">{scholarship.title}</span> has been successfully received.
+                                </p>
+                            </div>
+
+                            <div className="bg-slate-50 border rounded-xl p-6 text-left space-y-4">
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-slate-500">Application ID:</span>
+                                    <span className="font-mono font-bold text-slate-900">BSP-{Math.random().toString(36).substring(2, 9).toUpperCase()}</span>
+                                </div>
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-slate-500">Submission Date:</span>
+                                    <span className="font-semibold text-slate-900">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                                </div>
+                                <Separator />
+                                <div className="flex items-start gap-3 text-sm text-slate-600">
+                                    <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                                    <p>Our evaluators will review your documents. You can track your application status in your dashboard.</p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                                <Link href="/" className="w-full sm:w-auto">
+                                    <Button variant="outline" className="w-full h-11">
+                                        <Home className="mr-2 h-4 w-4" /> Go to Home
+                                    </Button>
+                                </Link>
+                                <Link href="/login" className="w-full sm:w-auto">
+                                    <Button className="w-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white">
+                                        Go to My Dashboard
+                                    </Button>
+                                </Link>
+                            </div>
+                        </CardContent>
+                    </Card>
+                    <p className="text-center text-slate-400 mt-8 text-sm">
+                        A confirmation email has been sent to your registered email address.
+                    </p>
+                </motion.div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -144,19 +294,19 @@ export default function ApplicationFormPage() {
                                     <motion.div variants={itemVariants} className="space-y-2">
                                         <Label htmlFor="firstName">First Name</Label>
                                         <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                                            <Input id="firstName" placeholder="Juan" className="focus-visible:ring-emerald-500 transition-all" />
+                                            <Input id="firstName" value={formData.firstName} onChange={handleInputChange} placeholder="Juan" className="focus-visible:ring-emerald-500 transition-all" />
                                         </motion.div>
                                     </motion.div>
                                     <motion.div variants={itemVariants} className="space-y-2">
                                         <Label htmlFor="middleName">Middle Name</Label>
                                         <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                                            <Input id="middleName" placeholder="Santos" className="focus-visible:ring-emerald-500 transition-all" />
+                                            <Input id="middleName" value={formData.middleName} onChange={handleInputChange} placeholder="Santos" className="focus-visible:ring-emerald-500 transition-all" />
                                         </motion.div>
                                     </motion.div>
                                     <motion.div variants={itemVariants} className="space-y-2">
                                         <Label htmlFor="lastName">Last Name</Label>
                                         <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                                            <Input id="lastName" placeholder="Dela Cruz" className="focus-visible:ring-emerald-500 transition-all" />
+                                            <Input id="lastName" value={formData.lastName} onChange={handleInputChange} placeholder="Dela Cruz" className="focus-visible:ring-emerald-500 transition-all" />
                                         </motion.div>
                                     </motion.div>
                                 </div>
@@ -164,13 +314,13 @@ export default function ApplicationFormPage() {
                                     <motion.div variants={itemVariants} className="space-y-2">
                                         <Label htmlFor="dob">Date of Birth</Label>
                                         <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                                            <Input id="dob" type="date" className="focus-visible:ring-emerald-500 transition-all" />
+                                            <Input id="dob" type="date" value={formData.dob} onChange={handleInputChange} className="focus-visible:ring-emerald-500 transition-all" />
                                         </motion.div>
                                     </motion.div>
                                     <motion.div variants={itemVariants} className="space-y-2">
                                         <Label htmlFor="gender">Gender</Label>
                                         <motion.div whileHover={{ scale: 1.01 }}>
-                                            <Select>
+                                            <Select value={formData.gender} onValueChange={(val) => handleSelectChange('gender', val)}>
                                                 <SelectTrigger className="focus:ring-emerald-500 transition-all">
                                                     <SelectValue placeholder="Select gender" />
                                                 </SelectTrigger>
@@ -188,11 +338,11 @@ export default function ApplicationFormPage() {
                                 <motion.div variants={itemVariants} className="space-y-4">
                                     <Label className="text-base font-semibold">Permanent Address</Label>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <Input placeholder="Region (BARMM)" className="focus-visible:ring-emerald-500 transition-all" />
-                                        <Input placeholder="Province" className="focus-visible:ring-emerald-500 transition-all" />
-                                        <Input placeholder="City / Municipality" className="focus-visible:ring-emerald-500 transition-all" />
-                                        <Input placeholder="Barangay" className="focus-visible:ring-emerald-500 transition-all" />
-                                        <Input placeholder="House No. / Street" className="md:col-span-2 focus-visible:ring-emerald-500 transition-all" />
+                                        <Input id="region" value={formData.region} onChange={handleInputChange} placeholder="Region (BARMM)" className="focus-visible:ring-emerald-500 transition-all" />
+                                        <Input id="province" value={formData.province} onChange={handleInputChange} placeholder="Province" className="focus-visible:ring-emerald-500 transition-all" />
+                                        <Input id="city" value={formData.city} onChange={handleInputChange} placeholder="City / Municipality" className="focus-visible:ring-emerald-500 transition-all" />
+                                        <Input id="barangay" value={formData.barangay} onChange={handleInputChange} placeholder="Barangay" className="focus-visible:ring-emerald-500 transition-all" />
+                                        <Input id="street" value={formData.street} onChange={handleInputChange} placeholder="House No. / Street" className="md:col-span-2 focus-visible:ring-emerald-500 transition-all" />
                                     </div>
                                 </motion.div>
                             </motion.div>
@@ -209,11 +359,11 @@ export default function ApplicationFormPage() {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <Label>Full Name</Label>
-                                            <Input placeholder="Father's Name" />
+                                            <Input id="fatherName" value={formData.fatherName} onChange={handleInputChange} placeholder="Father's Name" />
                                         </div>
                                         <div className="space-y-2">
                                             <Label>Occupation</Label>
-                                            <Input placeholder="Occupation" />
+                                            <Input id="fatherOccupation" value={formData.fatherOccupation} onChange={handleInputChange} placeholder="Occupation" />
                                         </div>
                                     </div>
                                 </div>
@@ -226,18 +376,18 @@ export default function ApplicationFormPage() {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <Label>Full Name</Label>
-                                            <Input placeholder="Mother's Maiden Name" />
+                                            <Input id="motherName" value={formData.motherName} onChange={handleInputChange} placeholder="Mother's Maiden Name" />
                                         </div>
                                         <div className="space-y-2">
                                             <Label>Occupation</Label>
-                                            <Input placeholder="Occupation" />
+                                            <Input id="motherOccupation" value={formData.motherOccupation} onChange={handleInputChange} placeholder="Occupation" />
                                         </div>
                                     </div>
                                 </div>
                                 <Separator />
                                 <div className="space-y-2">
                                     <Label htmlFor="income">Combined Annual Family Income</Label>
-                                    <Select>
+                                    <Select value={formData.annualIncome} onValueChange={(val) => handleSelectChange('annualIncome', val)}>
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select income range" />
                                         </SelectTrigger>
@@ -257,16 +407,16 @@ export default function ApplicationFormPage() {
                             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
                                 <div className="space-y-2">
                                     <Label htmlFor="school">Current School / University</Label>
-                                    <Input id="school" placeholder="Enter school name" />
+                                    <Input id="school" value={formData.school} onChange={handleInputChange} placeholder="Enter school name" />
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label htmlFor="program">Program / Course</Label>
-                                        <Input id="program" placeholder="e.g. BS Civil Engineering" />
+                                        <Input id="program" value={formData.program} onChange={handleInputChange} placeholder="e.g. BS Civil Engineering" />
                                     </div>
                                     <div className="space-y-2">
                                         <Label htmlFor="year">Year Level (Next Sem)</Label>
-                                        <Select>
+                                        <Select value={formData.yearLevel} onValueChange={(val) => handleSelectChange('yearLevel', val)}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select year" />
                                             </SelectTrigger>
@@ -281,11 +431,11 @@ export default function ApplicationFormPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="gpa">General Weighted Average (Last Sem)</Label>
-                                    <Input id="gpa" placeholder="e.g. 1.5 or 90%" />
+                                    <Input id="gpa" value={formData.gpa} onChange={handleInputChange} placeholder="e.g. 1.5 or 90%" />
                                 </div>
                                 <div className="space-y-2">
                                     <Label>Academic Achievements / Honors</Label>
-                                    <Input placeholder="List any honors received" />
+                                    <Input id="honors" value={formData.honors} onChange={handleInputChange} placeholder="List any honors received" />
                                 </div>
                             </div>
                         )}
@@ -333,16 +483,16 @@ export default function ApplicationFormPage() {
                                 <Card className="bg-slate-50 border-0 shadow-none">
                                     <CardContent className="p-4 space-y-4">
                                         <div className="flex justify-between items-start">
-                                            <p className="font-semibold text-slate-900">Juan Santos Dela Cruz</p>
+                                            <p className="font-semibold text-slate-900">{formData.firstName} {formData.middleName} {formData.lastName}</p>
                                             <Button variant="link" size="sm" className="h-auto p-0 text-emerald-600" onClick={() => setCurrentStep(1)}>Edit</Button>
                                         </div>
-                                        <p className="text-sm text-slate-600">Poblacion 1, Cotabato City</p>
+                                        <p className="text-sm text-slate-600">{formData.barangay}, {formData.city}, {formData.province}</p>
                                         <Separator className="bg-slate-200" />
                                         <div className="flex justify-between items-start">
-                                            <p className="font-semibold text-slate-900">Notre Dame University</p>
+                                            <p className="font-semibold text-slate-900">{formData.school}</p>
                                             <Button variant="link" size="sm" className="h-auto p-0 text-emerald-600" onClick={() => setCurrentStep(3)}>Edit</Button>
                                         </div>
-                                        <p className="text-sm text-slate-600">BS Civil Engineering • 3rd Year</p>
+                                        <p className="text-sm text-slate-600">{formData.program} • {formData.yearLevel ? `${formData.yearLevel}${['st', 'nd', 'rd', 'th'][Math.min(parseInt(formData.yearLevel) - 1, 3)] || 'th'} Year` : ''}</p>
                                         <Separator className="bg-slate-200" />
                                         <div className="flex justify-between items-start">
                                             <p className="font-semibold text-slate-900">Documents (5/5)</p>
@@ -355,33 +505,58 @@ export default function ApplicationFormPage() {
                                 </Card>
 
                                 <div className="flex items-start space-x-2 pt-4">
-                                    <Checkbox id="terms" />
-                                    <Label htmlFor="terms" className="text-sm leading-relaxed text-slate-600 font-normal">
+                                    <Checkbox
+                                        id="terms"
+                                        checked={termsAccepted}
+                                        onCheckedChange={(checked) => setTermsAccepted(!!checked)}
+                                    />
+                                    <Label htmlFor="terms" className="text-sm leading-relaxed text-slate-600 font-normal cursor-pointer select-none">
                                         I hereby certify that the information provided in this application is true and correct to the best of my knowledge. I understand that any false statement may result in the disqualification of my application.
                                     </Label>
                                 </div>
                             </div>
                         )}
                     </CardContent>
-                    <CardFooter className="flex justify-between bg-slate-50/50 border-t p-6">
-                        <Button
-                            variant="outline"
-                            onClick={handleBack}
-                            disabled={currentStep === 1}
-                            className="text-slate-600"
-                        >
-                            <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                        </Button>
-
-                        {currentStep < 5 ? (
-                            <Button onClick={handleNext} className="bg-emerald-600 hover:bg-emerald-700">
-                                Next Step <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        ) : (
-                            <Button onClick={() => alert("Application Submitted!")} className="bg-emerald-600 hover:bg-emerald-700 px-8">
-                                <Save className="mr-2 h-4 w-4" /> Submit Application
-                            </Button>
+                    <CardFooter className="flex flex-col gap-4 bg-slate-50/50 border-t p-6">
+                        {error && (
+                            <div className="w-full bg-red-50 text-red-600 px-4 py-3 rounded-md flex items-center text-sm border border-red-200">
+                                <AlertCircle className="h-4 w-4 mr-2" />
+                                {error}
+                            </div>
                         )}
+                        <div className="flex justify-between w-full">
+                            <Button
+                                variant="outline"
+                                onClick={handleBack}
+                                disabled={currentStep === 1 || isSubmitting}
+                                className="text-slate-600"
+                            >
+                                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                            </Button>
+
+                            {currentStep < 5 ? (
+                                <Button onClick={handleNext} disabled={isSubmitting} className="bg-emerald-600 hover:bg-emerald-700">
+                                    Next Step <ArrowRight className="ml-2 h-4 w-4" />
+                                </Button>
+                            ) : (
+                                <Button
+                                    onClick={handleSubmit}
+                                    disabled={isSubmitting}
+                                    className="bg-emerald-600 hover:bg-emerald-700 px-8 min-w-[180px]"
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            Submitting...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Save className="mr-2 h-4 w-4" /> Submit Application
+                                        </>
+                                    )}
+                                </Button>
+                            )}
+                        </div>
                     </CardFooter>
                 </Card>
             </div>
