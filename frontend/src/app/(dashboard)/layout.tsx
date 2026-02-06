@@ -71,6 +71,9 @@ const sidebarNavItems = [
     },
 ];
 
+
+import RealTimeClock from "@/components/shared/RealTimeClock";
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
@@ -102,40 +105,43 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* Mobile Header */}
             <div className="md:hidden flex items-center justify-between p-4 bg-white border-b">
                 <Link href="/" className="font-bold text-xl text-slate-900">Bangsamoro <span className="text-secondary">Scholarship</span> Portal</Link>
-                <Sheet>
-                    <SheetTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                            <Menu className="h-6 w-6" />
-                        </Button>
-                    </SheetTrigger>
-                    <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-                        <nav className="flex flex-col gap-4 mt-8">
-                            {sidebarNavItems.map((item) => (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    className={`flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-colors border ${pathname === item.href
-                                        ? "bg-emerald-50 text-emerald-900 border-emerald-600"
-                                        : "text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-900"
-                                        }`}
-                                >
-                                    <item.icon className="h-5 w-5" />
-                                    {item.title}
-                                </Link>
-                            ))}
-                            <div className="mt-auto pt-8 border-t">
-                                <Button
-                                    onClick={handleLogout}
-                                    variant="ghost"
-                                    className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
-                                >
-                                    <LogOut className="mr-2 h-4 w-4" />
-                                    Log out
-                                </Button>
-                            </div>
-                        </nav>
-                    </SheetContent>
-                </Sheet>
+                <div className="flex items-center gap-2">
+                    <RealTimeClock />
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                                <Menu className="h-6 w-6" />
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                            <nav className="flex flex-col gap-4 mt-8">
+                                {sidebarNavItems.map((item) => (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        className={`flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-colors border ${pathname === item.href
+                                            ? "bg-emerald-50 text-emerald-900 border-emerald-600"
+                                            : "text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-900"
+                                            }`}
+                                    >
+                                        <item.icon className="h-5 w-5" />
+                                        {item.title}
+                                    </Link>
+                                ))}
+                                <div className="mt-auto pt-8 border-t">
+                                    <Button
+                                        onClick={handleLogout}
+                                        variant="ghost"
+                                        className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+                                    >
+                                        <LogOut className="mr-2 h-4 w-4" />
+                                        Log out
+                                    </Button>
+                                </div>
+                            </nav>
+                        </SheetContent>
+                    </Sheet>
+                </div>
             </div>
 
             {/* Desktop Sidebar */}
@@ -240,6 +246,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         </div>
                     </div>
                     <div className="flex items-center gap-3 ml-4">
+                        <div className="hidden sm:block mr-2">
+                            <RealTimeClock />
+                        </div>
                         <Button variant="ghost" size="icon" className="relative text-slate-500 hover:text-emerald-600 rounded-full">
                             <Bell className="h-5 w-5" />
                             <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
