@@ -121,27 +121,23 @@ export default function Header() {
                     </nav>
 
                     {/* Action Buttons */}
-                    <div className="flex items-center gap-4">
-                        {user ? (
-                            <Link href="/dashboard">
-                                <Button className="bg-primary text-white hover:bg-primary/90 shadow-md">
-                                    Dashboard
-                                </Button>
-                            </Link>
-                        ) : (
-                            <>
-                                <Link href="/login">
-                                    <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
-                                        Login
-                                    </Button>
-                                </Link>
-                                <Link href="/register">
-                                    <Button className="bg-primary text-white hover:bg-primary/90 shadow-md transition-all hover:shadow-lg active:scale-95">
-                                        Register
-                                    </Button>
-                                </Link>
-                            </>
-                        )}
+                    <div className="flex items-center gap-3">
+                        <Link href="/dashboard">
+                            <Button variant="ghost" className="text-primary hover:text-primary hover:bg-primary/5 font-bold uppercase tracking-tight text-xs">
+                                Dashboard
+                            </Button>
+                        </Link>
+                        <div className="h-4 w-[1px] bg-slate-200 mx-1" />
+                        <Link href="/login">
+                            <Button variant="outline" className="border-primary text-primary hover:bg-primary/5 font-bold">
+                                Login
+                            </Button>
+                        </Link>
+                        <Link href="/register">
+                            <Button className="bg-primary text-white hover:bg-primary/90 shadow-md transition-all hover:shadow-lg active:scale-95 font-bold">
+                                Register
+                            </Button>
+                        </Link>
                     </div>
                 </div>
 
@@ -171,27 +167,22 @@ export default function Header() {
                             Contact
                         </Link>
                     </nav>
-                    <div className="flex flex-col gap-3 pt-4">
-                        {user ? (
-                            <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>
-                                <Button className="w-full bg-primary text-white">
-                                    Go to Dashboard
-                                </Button>
-                            </Link>
-                        ) : (
-                            <>
-                                <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                                    <Button variant="outline" className="w-full">
-                                        Login
-                                    </Button>
-                                </Link>
-                                <Link href="/register" onClick={() => setIsMenuOpen(false)}>
-                                    <Button className="w-full bg-primary text-white">
-                                        Register
-                                    </Button>
-                                </Link>
-                            </>
-                        )}
+                    <div className="flex flex-col gap-3 pt-4 border-t border-slate-100">
+                        <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                            <Button className="w-full bg-slate-100 text-slate-700 hover:bg-slate-200 border-none font-bold">
+                                Dashboard
+                            </Button>
+                        </Link>
+                        <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                            <Button variant="outline" className="w-full border-primary text-primary font-bold">
+                                Login
+                            </Button>
+                        </Link>
+                        <Link href="/register" onClick={() => setIsMenuOpen(false)}>
+                            <Button className="w-full bg-primary text-white font-bold">
+                                Register
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             )}
