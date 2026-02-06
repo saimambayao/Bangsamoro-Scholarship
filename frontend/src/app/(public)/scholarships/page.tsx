@@ -7,10 +7,19 @@ import ScholarshipCard from "@/components/features/ScholarshipCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Filter, SlidersHorizontal, ChevronDown, Check } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
-export default function ScholarshipDirectory() {
-    const [searchQuery, setSearchQuery] = useState("");
+function ScholarshipDirectoryContent() {
+    const searchParams = useSearchParams();
+    const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+
+    useEffect(() => {
+        const query = searchParams.get("q");
+        if (query) {
+            setSearchQuery(query);
+        }
+    }, [searchParams]);
 
     const filteredScholarships = SCHOLARSHIPS.filter(s =>
         s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -98,34 +107,36 @@ export default function ScholarshipDirectory() {
 
                             <div className="flex items-center gap-3">
                                 <Button variant="ghost" size="sm" className="lg:hidden">
-                                    <Filter className="mr-2 h-4 w-4" /> Filters
+                                    <SlidersHorizontal className="mr-2 h-4 w-4" />
+                                    Filters
                                 </Button>
-                                <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground uppercase tracking-tighter">
-                                    Sort By:
-                                    <Button variant="ghost" size="sm" className="font-black text-primary hover:bg-transparent">
-                                        Deadline <ChevronDown className="ml-1 h-4 w-4" />
+
+                                <div className="flex items-center gap-2">
+                                    <span className="hidden text-xs font-bold text-muted-foreground uppercase tracking-widest md:block">Sort by:</span>
+                                    <Button variant="ghost" size="sm" className="text-xs font-bold uppercase tracking-widest">
+                                        Most Recent
+                                        <ChevronDown className="ml-2 h-3 w-3" />
                                     </Button>
                                 </div>
                             </div>
                         </div>
 
                         {/* Grid */}
-                        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                            {filteredScholarships.map((s) => (
-                                <ScholarshipCard key={s.id} scholarship={s} />
-                            ))}
-                        </div>
-
-                        {/* No Results */}
-                        {filteredScholarships.length === 0 && (
-                            <div className="py-20 text-center">
-                                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-muted/50 text-muted-foreground">
-                                    <Search className="h-10 w-10" />
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                            {filteredScholarships.length > 0 ? (
+                                filteredScholarships.map((scholarship) => (
+                                    <ScholarshipCard key={scholarship.id} scholarship={scholarship} />
+                                ))
+                            ) : (
+                                <div className="col-span-full flex flex-col items-center justify-center py-20 rounded-3xl border border-dashed text-center">
+                                    <div className="h-16 w-16 bg-muted/50 rounded-full flex items-center justify-center mb-4">
+                                        <Search className="h-8 w-8 text-muted-foreground" />
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-2">No scholarships found</h3>
+                                    <p className="text-muted-foreground">Try adjusting your filters or search terms.</p>
                                 </div>
-                                <h3 className="text-xl font-extrabold uppercase text-primary mb-2">No Matching Scholarships</h3>
-                                <p className="text-muted-foreground">Try adjusting your filters or search keywords.</p>
-                            </div>
-                        )}
+                            )}
+                        </div>
 
                         {/* Pagination */}
                         {filteredScholarships.length > 0 && (
@@ -145,5 +156,13 @@ export default function ScholarshipDirectory() {
 
             <Footer />
         </main>
+    );
+}
+
+export default function ScholarshipDirectory() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ScholarshipDirectoryContent />
+        </Suspense>
     );
 }

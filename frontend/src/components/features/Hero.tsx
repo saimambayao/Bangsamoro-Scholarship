@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Search, ArrowRight, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
@@ -7,10 +9,28 @@ import { SCHOLARS_DIRECTORY } from "@/lib/mock-data";
 import Image from "next/image";
 
 export default function Hero() {
+    const [searchQuery, setSearchQuery] = useState("");
+    const router = useRouter();
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            const params = new URLSearchParams();
+            params.set("q", searchQuery.trim());
+            router.push(`/scholarships?${params.toString()}`);
+        } else {
+            router.push(`/scholarships`);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter") {
+            handleSearch(e as any);
+        }
+    };
+
     return (
         <section className="relative overflow-hidden bg-background pt-16 pb-20 lg:pt-24 lg:pb-28">
-
-
             <div className="container relative z-10 mx-auto px-4">
                 <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
                     <motion.div
@@ -27,19 +47,25 @@ export default function Hero() {
                             Your one-stop platform to discover opportunities, build your academic profile, and connect with a community of scholars shaping the future of Bangsamoro.
                         </p>
 
-                        <div className="flex flex-col gap-4 sm:flex-row justify-center pt-4">
+                        <form onSubmit={handleSearch} className="flex flex-col gap-4 sm:flex-row justify-center pt-4">
                             <div className="relative flex-1 max-w-lg w-full">
                                 <Search className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 text-muted-foreground" />
                                 <input
                                     type="text"
                                     placeholder="Search scholarships..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    onKeyDown={handleKeyDown}
                                     className="h-14 w-full rounded-xl border border-border bg-white pl-12 pr-4 text-base shadow-sm focus:border-primary focus:ring-2 focus:ring-primary outline-none transition-all"
                                 />
                             </div>
-                            <Button className="h-14 px-10 bg-primary text-white hover:bg-primary/90 text-base font-semibold">
+                            <Button
+                                type="submit"
+                                className="h-14 px-10 bg-primary text-white hover:bg-primary/90 text-base font-semibold"
+                            >
                                 Browse All <ArrowRight className="ml-2 h-6 w-6" />
                             </Button>
-                        </div>
+                        </form>
 
                         <div className="flex flex-col items-center gap-5 text-base font-medium pt-6">
                             <div className="flex -space-x-4">

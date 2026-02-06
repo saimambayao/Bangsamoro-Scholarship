@@ -71,9 +71,6 @@ export default function DashboardPage() {
                     <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
                     <p className="text-slate-600">Welcome back, Juan! Here's an overview of your scholarship applications.</p>
                 </div>
-                <Button className="bg-emerald-600 hover:bg-emerald-700 shadow-sm">
-                    <Plus className="mr-2 h-4 w-4" /> Browse Scholarships
-                </Button>
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
@@ -121,15 +118,25 @@ export default function DashboardPage() {
                             <div className="space-y-6">
                                 {myApplications.map((app) => (
                                     <div key={app.id} className="flex flex-col sm:flex-row items-start justify-between border-b border-slate-100 pb-6 last:border-0 last:pb-0 gap-4">
-                                        <div className="space-y-1">
-                                            <h4 className="font-bold text-slate-900">{app.scholarship?.title}</h4>
-                                            <p className="text-sm text-slate-600 flex items-center gap-2">
-                                                <span className="font-semibold text-emerald-700">{app.scholarship?.provider}</span>
-                                                <span className="text-slate-300">•</span>
-                                                <span>Submitted: {app.submittedDate || "Not submitted"}</span>
-                                            </p>
+                                        <div className="flex gap-4">
+                                            <div className="h-14 w-14 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center p-2 flex-shrink-0">
+                                                {app.scholarship?.logo ? (
+                                                    <img
+                                                        src={app.scholarship.logo}
+                                                        alt={app.scholarship.provider}
+                                                        className="h-10 w-10 object-contain"
+                                                    />
+                                                ) : (
+                                                    <span className="text-xs font-bold text-emerald-700">{app.scholarship?.provider}</span>
+                                                )}
+                                            </div>
+                                            <div className="space-y-1">
+                                                <h4 className="font-bold text-slate-900 leading-tight">{app.scholarship?.title}</h4>
+                                                <p className="text-sm text-emerald-700 font-medium">{app.scholarship?.providerFull}</p>
+                                                <p className="text-xs text-slate-500">Submitted: {app.submittedDate || "Not submitted"}</p>
+                                            </div>
                                         </div>
-                                        <div className="flex flex-col items-end gap-2 w-full sm:w-auto">
+                                        <div className="flex flex-col items-end gap-2 w-full sm:w-auto h-full justify-between">
                                             <Badge
                                                 variant={app.status === 'Draft' ? 'outline' : 'default'}
                                                 className={
@@ -173,9 +180,11 @@ export default function DashboardPage() {
                                     </div>
                                 ))}
                             </div>
-                            <Button variant="outline" className="w-full mt-6 text-slate-600">
-                                View All Notifications
-                            </Button>
+                            <Link href="/dashboard/messages">
+                                <Button variant="outline" className="w-full mt-6 text-slate-600">
+                                    View All Notifications
+                                </Button>
+                            </Link>
                         </CardContent>
                     </Card>
                 </div>

@@ -78,8 +78,16 @@ export default function ApplicationsPage() {
                                 <TableRow key={app.id}>
                                     <TableCell className="font-medium">
                                         <div className="flex items-center gap-3">
-                                            <div className="h-10 w-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 font-bold text-xs shrink-0">
-                                                {app.scholarship?.provider}
+                                            <div className="h-10 w-10 rounded-lg bg-white border border-slate-100 flex items-center justify-center p-1.5 shrink-0">
+                                                {app.scholarship?.logo ? (
+                                                    <img
+                                                        src={app.scholarship.logo}
+                                                        alt={app.scholarship.provider}
+                                                        className="h-full w-full object-contain"
+                                                    />
+                                                ) : (
+                                                    <span className="text-emerald-700 font-bold text-[10px]">{app.scholarship?.provider}</span>
+                                                )}
                                             </div>
                                             <div>
                                                 <p className="font-bold text-slate-900">{app.scholarship?.title}</p>

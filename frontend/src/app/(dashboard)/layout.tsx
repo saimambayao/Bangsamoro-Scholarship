@@ -3,7 +3,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import {
     CreditCard,
     FileText,
@@ -45,7 +46,7 @@ const sidebarNavItems = [
     {
         title: "Documents",
         href: "/dashboard/documents",
-        icon: CreditCard, // Using CreditCard as a placeholder for Identity/Docs
+        icon: CreditCard,
     },
     {
         title: "Messages",
@@ -66,6 +67,29 @@ const sidebarNavItems = [
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
+    const router = useRouter();
+    const [searchQuery, setSearchQuery] = useState("");
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        router.push('/login');
+    };
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            router.push(`/scholarships?q=${encodeURIComponent(searchQuery.trim())}`);
+        }
+    };
+
+    if (!mounted) {
+        return <div className="min-h-screen bg-slate-50" />;
+    }
 
     return (
         <div className="flex min-h-screen flex-col md:flex-row bg-slate-50">
@@ -94,7 +118,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 </Link>
                             ))}
                             <div className="mt-auto pt-8 border-t">
-                                <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50">
+                                <Button
+                                    onClick={handleLogout}
+                                    variant="ghost"
+                                    className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+                                >
                                     <LogOut className="mr-2 h-4 w-4" />
                                     Log out
                                 </Button>
@@ -126,9 +154,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     </Link>
                 </div>
                 <div className="p-4">
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 shadow-sm mb-6">
-                        Browse Scholarships
-                    </Button>
+                    <Link href="/scholarships">
+                        <Button className="w-full bg-emerald-600 hover:bg-emerald-700 shadow-sm mb-6">
+                            Browse Scholarships
+                        </Button>
+                    </Link>
 
                     <nav className="flex flex-col gap-1 relative">
                         {sidebarNavItems.map((item) => {
@@ -179,7 +209,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             <p className="truncate text-xs text-slate-500">juan@example.com</p>
                         </div>
                     </div>
-                    <Button variant="ghost" size="sm" className="w-full justify-start text-slate-500 hover:text-red-600 hover:bg-red-50">
+                    <Button
+                        onClick={handleLogout}
+                        variant="ghost"
+                        size="sm"
+                        className="w-full justify-start text-slate-500 hover:text-red-600 hover:bg-red-50"
+                    >
                         <LogOut className="mr-2 h-4 w-4" />
                         Sign Out
                     </Button>
@@ -190,13 +225,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="flex-1 md:ml-64 flex flex-col min-h-screen">
                 <header className="h-16 flex items-center justify-between px-6 bg-white/80 backdrop-blur-md border-b sticky top-0 z-40">
                     <div className="flex-1 flex justify-center max-w-2xl mx-auto">
-                        <div className="relative w-full">
+                        <form onSubmit={handleSearch} className="relative w-full">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                             <Input
                                 placeholder="Search scholarships..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                                 className="pl-10 h-10 bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 rounded-full transition-all hover:bg-white"
                             />
-                        </div>
+                        </form>
                     </div>
                     <div className="flex items-center gap-3 ml-4">
                         <Button variant="ghost" size="icon" className="relative text-slate-500 hover:text-emerald-600 rounded-full">
@@ -214,14 +251,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             <DropdownMenuContent align="end" className="w-56">
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => router.push('/dashboard/profile')} className="cursor-pointer">
                                     <User className="mr-2 h-4 w-4" /> Profile
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => router.push('/dashboard/settings')} className="cursor-pointer">
                                     <Settings className="mr-2 h-4 w-4" /> Settings
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem className="text-red-600 focus:text-red-700 focus:bg-red-50">
+                                <DropdownMenuItem onClick={handleLogout} className="text-red-600 focus:text-red-700 focus:bg-red-50 cursor-pointer">
                                     <LogOut className="mr-2 h-4 w-4" /> Log out
                                 </DropdownMenuItem>
                             </DropdownMenuContent>

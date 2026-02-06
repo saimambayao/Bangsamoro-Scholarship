@@ -48,20 +48,19 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-4 whitespace-normal">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-3 whitespace-normal">
             {[
-              { step: "01", title: "Create Profile", desc: "Register and complete your academic and personal profile.", icon: <UserPlus className="h-8 w-8" /> },
-              { step: "02", title: "Browse", desc: "Discover scholarships that match your eligibility and course.", icon: <Search className="h-8 w-8" /> },
-              { step: "03", title: "Apply Online", desc: "Submit your application and upload documents directly.", icon: <ClipboardList className="h-8 w-8" /> },
-              { step: "04", title: "Track Status", desc: "Monitor your application progress in real-time.", icon: <CheckCircle2 className="h-8 w-8" /> },
+              { step: "01", title: "Create Profile", desc: "Register and complete your academic and personal profile.", icon: <UserPlus className="h-8 w-8" />, href: "/register" },
+              { step: "02", title: "Apply Online", desc: "Submit your application and upload documents directly.", icon: <ClipboardList className="h-8 w-8" />, href: "/scholarships" },
+              { step: "03", title: "Track Status", desc: "Monitor your application progress in real-time.", icon: <CheckCircle2 className="h-8 w-8" />, href: "/dashboard" },
             ].map((item, idx) => (
-              <div key={idx} className="relative flex flex-col items-center text-center group">
+              <Link key={idx} href={item.href} className="relative flex flex-col items-center text-center group cursor-pointer">
                 <div className="mb-4 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
                   {item.icon}
                 </div>
-                <h3 className="mb-3 text-xl font-bold">{item.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed px-4">{item.desc}</p>
-              </div>
+                <h3 className="mb-3 text-xl font-bold group-hover:text-primary transition-colors">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed px-4 group-hover:text-foreground transition-colors">{item.desc}</p>
+              </Link>
             ))}
           </div>
         </div>
@@ -98,6 +97,15 @@ export default function Home() {
                   Although we come from different programs and have faced different struggles, we are united by the same journey of showing up even when it was difficult. As we move forward into our respective professions, may we carry with us the values instilled by Mindanao State University: integrity, humility, excellence, and compassion. May we use our knowledge not only to build successful careers but to serve people, uplift communities, and become instruments of positive change.
                 </p>
                 <span className="absolute -right-4 bottom-0 text-6xl text-secondary/20 font-serif leading-none">"</span>
+              </div>
+
+              <div className="mt-12 flex justify-start">
+                <Link href="/success-stories">
+                  <Button className="h-12 px-8 bg-secondary text-primary hover:bg-white hover:text-primary transition-all font-bold uppercase tracking-wider group">
+                    View Success Stories
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-2 transition-transform" />
+                  </Button>
+                </Link>
               </div>
             </div>
 

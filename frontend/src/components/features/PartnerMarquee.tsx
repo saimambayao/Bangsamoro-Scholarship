@@ -2,6 +2,7 @@
 
 import { PARTNERS } from "@/lib/mock-data";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface PartnerMarqueeProps {
     title?: string;
@@ -41,8 +42,9 @@ export default function PartnerMarquee({
                         }}
                     >
                         {quadruplePartners.map((partner, idx) => (
-                            <div
+                            <Link
                                 key={idx}
+                                href={`/scholarships?q=${encodeURIComponent(partner.name)}`}
                                 className="flex flex-col items-center flex-shrink-0 transition-all duration-500 group cursor-pointer"
                             >
                                 <div className="h-12 w-12 md:h-20 md:w-20 relative transform group-hover:scale-110 transition-transform duration-500">
@@ -59,7 +61,7 @@ export default function PartnerMarquee({
                                         </span>
                                     </div>
                                 )}
-                            </div>
+                            </Link>
                         ))}
                     </motion.div>
                 </div>
