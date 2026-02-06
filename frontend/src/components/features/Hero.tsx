@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -47,25 +48,13 @@ export default function Hero() {
                             Your one-stop platform to discover opportunities, build your academic profile, and connect with a community of scholars shaping the future of Bangsamoro.
                         </p>
 
-                        <form onSubmit={handleSearch} className="flex flex-col gap-4 sm:flex-row justify-center pt-4">
-                            <div className="relative flex-1 max-w-lg w-full">
-                                <Search className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 text-muted-foreground" />
-                                <input
-                                    type="text"
-                                    placeholder="Search scholarships..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    onKeyDown={handleKeyDown}
-                                    className="h-14 w-full rounded-xl border border-border bg-white pl-12 pr-4 text-base shadow-sm focus:border-primary focus:ring-2 focus:ring-primary outline-none transition-all"
-                                />
-                            </div>
-                            <Button
-                                type="submit"
-                                className="h-14 px-10 bg-primary text-white hover:bg-primary/90 text-base font-semibold"
-                            >
-                                Browse All <ArrowRight className="ml-2 h-6 w-6" />
-                            </Button>
-                        </form>
+                        <div className="flex justify-center pt-8">
+                            <Link href="/scholarships">
+                                <Button className="h-14 px-10 bg-primary text-white hover:bg-primary/90 text-base font-bold rounded-xl shadow-lg hover:shadow-primary/20 transition-all active:scale-95 group">
+                                    Explore Scholarships <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1" />
+                                </Button>
+                            </Link>
+                        </div>
 
                         <div className="flex flex-col items-center gap-5 text-base font-medium pt-6">
                             <div className="flex -space-x-4">
