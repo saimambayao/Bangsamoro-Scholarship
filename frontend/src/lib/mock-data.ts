@@ -406,6 +406,58 @@ export const SCHOLARS_DIRECTORY = [
         location: "Zamboanga City",
         about: "Future educator.",
         achievements: []
+    },
+    {
+        id: "scholar-5",
+        name: "Sitti Nurhaliza",
+        avatar: "/images/scholars/fatima_musa.png",
+        program: "BS Public Health",
+        school: "Mindanao State University - Maguindanao",
+        type: "Ministry Scholar",
+        batch: "2026",
+        status: "Active",
+        location: "Cotabato City",
+        about: "Dedicated to improving community health standards.",
+        achievements: ["Dean's Lister", "Health Ambassador"]
+    },
+    {
+        id: "scholar-6",
+        name: "Zulkifli Ibrahim",
+        avatar: "/images/scholars/ahmad_pendatun.png",
+        program: "BS Computer Science",
+        school: "Notre Dame University",
+        type: "BASE Scholar",
+        batch: "2024",
+        status: "Active",
+        location: "Parang, Maguindanao",
+        about: "Tech enthusiast building solutions for the Bangsamoro.",
+        achievements: ["Hackathon Runner-up"]
+    },
+    {
+        id: "scholar-7",
+        name: "Aisha Bakar",
+        avatar: "/images/scholars/maria_santos.png",
+        program: "BS Social Work",
+        school: "MSU - Marawi",
+        type: "Ministry Scholar",
+        batch: "2025",
+        status: "Active",
+        location: "Marawi City",
+        about: "Aiming to support displaced families.",
+        achievements: ["Community Service Award"]
+    },
+    {
+        id: "scholar-8",
+        name: "Hassan Ali",
+        avatar: "/images/scholars/omar_ibrahim.png",
+        program: "BS Agriculture",
+        school: "Upi Agricultural School",
+        type: "AHME Scholar",
+        batch: "2026",
+        status: "Active",
+        location: "Upi, Maguindanao",
+        about: "Next generation farmer.",
+        achievements: ["Outstanding Student Farmer"]
     }
 ];
 
