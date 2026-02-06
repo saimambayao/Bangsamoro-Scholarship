@@ -6,30 +6,30 @@ Wireframes for **Community Features** (FR-2.2, FR-2.3) and **Learning Management
 
 ## 👥 Community Features (Phase 3)
 
-| # | Page | Route | FR Reference | Status |
-| --- | --- | --- | --- | --- |
-| 1 | Community Feed | `/dashboard/community` | FR-2.3 (Community) | - [x] |
-| 2 | Post Detail | `/dashboard/community/posts/[id]` | FR-2.3 (Community) | - [x] |
-| 3 | Scholar Directory | `/dashboard/community/scholars` | FR-2.2 (Networking) | - [x] |
-| 4 | Scholar Public Profile | `/dashboard/community/scholars/[id]` | FR-2.1 (Profiles) | - [x] |
-| 5 | Direct Messaging | `/dashboard/messages` | FR-2.2.3 (Messaging) | - [ ] |
-| 6 | My Connections | `/dashboard/community/connections` | FR-2.2.2 (Connections) | - [x] |
-| 7 | Groups | `/dashboard/community/groups` | FR-2.3 (Community) | - [x] |
-| 8 | Group Detail | `/dashboard/community/groups/[id]` | FR-2.3 (Community) | - [x] |
-| 9 | Events Calendar | `/dashboard/community/events` | FR-2.3 (Community) | - [x] |
+| # | Page | Route | FR Reference | Status | Completed At |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Community Feed | `/dashboard/community` | FR-2.3 (Community) | - [x] | 2026-02-06 16:02:23 |
+| 2 | Post Detail | `/dashboard/community/posts/[id]` | FR-2.3 (Community) | - [x] | 2026-02-06 16:02:23 |
+| 3 | Scholar Directory | `/dashboard/community/scholars` | FR-2.2 (Networking) | - [x] | 2026-02-06 16:02:23 |
+| 4 | Scholar Public Profile | `/dashboard/community/scholars/[id]` | FR-2.1 (Profiles) | - [x] | 2026-02-06 16:02:23 |
+| 5 | Direct Messaging | `/dashboard/messages` | FR-2.2.3 (Messaging) | - [ ] | |
+| 6 | My Connections | `/dashboard/community/connections` | FR-2.2.2 (Connections) | - [x] | 2026-02-06 16:02:23 |
+| 7 | Groups | `/dashboard/community/groups` | FR-2.3 (Community) | - [x] | 2026-02-06 16:02:23 |
+| 8 | Group Detail | `/dashboard/community/groups/[id]` | FR-2.3 (Community) | - [x] | 2026-02-06 16:02:23 |
+| 9 | Events Calendar | `/dashboard/community/events` | FR-2.3 (Community) | - [x] | 2026-02-06 16:02:23 |
 
 ## 📚 LMS Features (Phase 4)
 
-| # | Page | Route | FR Reference | Status |
-| --- | --- | --- | --- | --- |
-| 1 | Learning Dashboard | `/dashboard/learning` | FR-3.1 (LMS) | - [x] |
-| 2 | Course Catalog | `/dashboard/learning/courses` | FR-3.1 (LMS) | - [x] |
-| 3 | Course Detail | `/dashboard/learning/courses/[id]` | FR-3.1 (LMS) | - [x] |
-| 4 | Course Player / Lesson | `/dashboard/learning/courses/[id]/lesson/[lessonId]` | FR-3.1 (LMS) | - [x] |
-| 5 | My Enrolled Courses | `/dashboard/learning/my-courses` | FR-3.1 (LMS) | - [x] |
-| 6 | Resources Library | `/dashboard/learning/resources` | FR-3.2 (Resources) | - [x] |
-| 7 | Mentorship Hub | `/dashboard/learning/mentorship` | FR-3.3 (Mentorship) | - [x] |
-| 8 | Mentor Profile / Booking | `/dashboard/learning/mentorship/[mentorId]` | FR-3.3 (Mentorship) | - [x] |
+| # | Page | Route | FR Reference | Status | Completed At |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Learning Dashboard | `/dashboard/learning` | FR-3.1 (LMS) | - [x] | 2026-02-06 16:02:23 |
+| 2 | Course Catalog | `/dashboard/learning/courses` | FR-3.1 (LMS) | - [x] | 2026-02-06 16:02:23 |
+| 3 | Course Detail | `/dashboard/learning/courses/[id]` | FR-3.1 (LMS) | - [x] | 2026-02-06 16:02:23 |
+| 4 | Course Player / Lesson | `/dashboard/learning/courses/[id]/lesson/[lessonId]` | FR-3.1 (LMS) | - [x] | 2026-02-06 16:02:23 |
+| 5 | My Enrolled Courses | `/dashboard/learning/my-courses` | FR-3.1 (LMS) | - [x] | 2026-02-06 16:02:23 |
+| 6 | Resources Library | `/dashboard/learning/resources` | FR-3.2 (Resources) | - [x] | 2026-02-06 16:02:23 |
+| 7 | Mentorship Hub | `/dashboard/learning/mentorship` | FR-3.3 (Mentorship) | - [x] | 2026-02-06 16:02:23 |
+| 8 | Mentor Profile / Booking | `/dashboard/learning/mentorship/[mentorId]` | FR-3.3 (Mentorship) | - [x] | 2026-02-06 16:02:23 |
 
 ---
 
