@@ -5,13 +5,18 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Search, ArrowRight, CheckCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { SCHOLARS_DIRECTORY } from "@/lib/mock-data";
 import Image from "next/image";
+import RealTimeClock from "@/components/shared/RealTimeClock";
 
 export default function Hero() {
     const [searchQuery, setSearchQuery] = useState("");
     const router = useRouter();
+    const { scrollY } = useScroll();
+
+    // Transform scroll position to opacity/transparency values
+    const borderOpacity = useTransform(scrollY, [0, 200], ["rgba(16, 185, 129, 0.1)", "rgba(16, 185, 129, 0)"]);
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -32,6 +37,21 @@ export default function Hero() {
 
     return (
         <section className="relative overflow-hidden bg-background pt-16 pb-20 lg:pt-24 lg:pb-28">
+            {/* Sticky RealTimeClock on the right - Minimal/Transparent */}
+            <div className="fixed top-24 right-8 hidden lg:block z-[100]">
+                <motion.div
+                    style={{
+                        borderColor: borderOpacity,
+                    }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5, duration: 0.8 }}
+                    className="border-l-2 pl-4 py-1 flex items-center group hover:scale-105 active:scale-95 cursor-default transition-all duration-300"
+                >
+                    <RealTimeClock />
+                </motion.div>
+            </div>
+
             <div className="container relative z-10 mx-auto px-4">
                 <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
                     <motion.div
@@ -40,15 +60,15 @@ export default function Hero() {
                         transition={{ duration: 0.6 }}
                         className="space-y-12"
                     >
-                        <h1 className="text-5xl font-extrabold tracking-tight md:text-7xl">
-                            Discover <span className="text-secondary">Scholarships</span>
+                        <h1 className="text-5xl font-extrabold tracking-tight md:text-7xl leading-[1.1] text-slate-900">
+                            Discover <span className="text-secondary text-primary">Scholarships</span>
                         </h1>
 
                         <p className="max-w-3xl text-xl text-muted-foreground md:text-2xl leading-relaxed italic mx-auto">
                             Your one-stop platform to discover opportunities, build your academic profile, and connect with a community of scholars shaping the future of Bangsamoro.
                         </p>
 
-                        <div className="flex justify-center pt-8">
+                        <div className="flex justify-center pt-4">
                             <Link href="/scholarships">
                                 <Button className="h-14 px-10 bg-primary text-white hover:bg-primary/90 text-base font-bold rounded-xl shadow-lg hover:shadow-primary/20 transition-all active:scale-95 group">
                                     Explore Scholarships <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1" />
@@ -56,7 +76,7 @@ export default function Hero() {
                             </Link>
                         </div>
 
-                        <div className="flex flex-col items-center gap-5 text-base font-medium pt-6">
+                        <div className="flex flex-col items-center gap-5 text-base font-medium pt-8">
                             <div className="flex -space-x-4">
                                 {SCHOLARS_DIRECTORY.slice(0, 4).map((scholar) => (
                                     <div key={scholar.id} className="h-14 w-14 rounded-full border-4 border-background bg-muted overflow-hidden relative ring-2 ring-primary/10">
@@ -68,6 +88,9 @@ export default function Hero() {
                                         />
                                     </div>
                                 ))}
+                                <div className="h-14 w-14 rounded-full border-4 border-background bg-emerald-50 flex items-center justify-center text-xs font-bold text-emerald-700 ring-2 ring-primary/10">
+                                    +12k
+                                </div>
                             </div>
                             <p className="text-muted-foreground text-lg">
                                 Joined by <span className="text-foreground font-bold">12,000+</span> scholars already
