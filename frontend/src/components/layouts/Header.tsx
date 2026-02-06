@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 
+
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [user, setUser] = useState<any>(null);
@@ -74,12 +75,12 @@ export default function Header() {
                 </Link>
 
                 {/* Desktop Search Bar - Centered */}
-                <div className="hidden lg:flex flex-1 max-w-md mx-8">
-                    <form onSubmit={handleSearch} className="relative w-full">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-primary transition-colors" />
+                <div className="hidden lg:flex flex-1 max-w-sm mx-12">
+                    <form onSubmit={handleSearch} className="relative w-full flex items-center">
+                        <Search className="absolute left-3.5 h-4 w-4 text-slate-400 group-focus-within:text-primary transition-colors" />
                         <Input
-                            placeholder="Find your scholarship..."
-                            className="w-full pl-10 h-11 bg-slate-50/50 border-slate-200 focus-visible:ring-primary rounded-full transition-all hover:bg-white hover:border-primary/30"
+                            placeholder="Find scholarship..."
+                            className="w-full pl-10 h-10 bg-slate-50/50 border-slate-200 focus-visible:ring-primary rounded-full transition-all hover:bg-white hover:border-primary/30 text-sm"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -87,9 +88,9 @@ export default function Header() {
                 </div>
 
                 {/* Right Side Group: Navigation + Actions */}
-                <div className="hidden md:flex items-center gap-10">
+                <div className="hidden md:flex items-center gap-8">
                     {/* Desktop Nav with Sliding Active Indicator */}
-                    <nav className="flex items-center gap-8">
+                    <nav className="flex items-center gap-6">
                         {[
                             { name: "Scholarships", href: "/scholarships" },
                             { name: "Stories", href: "/success-stories" },
@@ -120,6 +121,8 @@ export default function Header() {
                         ))}
                     </nav>
 
+                    <div className="h-4 w-[1px] bg-slate-200" />
+
                     {/* Action Buttons */}
                     <div className="flex items-center gap-3">
                         <Link href="/dashboard">
@@ -127,14 +130,13 @@ export default function Header() {
                                 Dashboard
                             </Button>
                         </Link>
-                        <div className="h-4 w-[1px] bg-slate-200 mx-1" />
                         <Link href="/login">
-                            <Button variant="outline" className="border-primary text-primary hover:bg-primary/5 font-bold">
+                            <Button variant="outline" className="border-primary text-primary hover:bg-primary/5 font-bold px-5 h-10">
                                 Login
                             </Button>
                         </Link>
                         <Link href="/register">
-                            <Button className="bg-primary text-white hover:bg-primary/90 shadow-md transition-all hover:shadow-lg active:scale-95 font-bold">
+                            <Button className="bg-primary text-white hover:bg-primary/90 shadow-md transition-all hover:shadow-lg active:scale-95 font-bold px-5 h-10">
                                 Register
                             </Button>
                         </Link>
@@ -142,28 +144,30 @@ export default function Header() {
                 </div>
 
                 {/* Mobile menu button */}
-                <button
-                    className="md:hidden p-2 text-foreground"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
-                    {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                </button>
+                <div className="md:hidden flex items-center gap-4">
+                    <button
+                        className="p-2 text-foreground"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                    </button>
+                </div>
             </div>
 
             {/* Mobile Nav */}
             {isMenuOpen && (
                 <div className="md:hidden border-t bg-background px-4 py-6 space-y-4 animate-in slide-in-from-top duration-300">
                     <nav className="flex flex-col gap-4">
-                        <Link href="/scholarships" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">
+                        <Link href="/scholarships" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium font-bold text-slate-700">
                             Scholarships
                         </Link>
-                        <Link href="/success-stories" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">
+                        <Link href="/success-stories" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium font-bold text-slate-700">
                             Stories
                         </Link>
-                        <Link href="/about" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">
+                        <Link href="/about" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium font-bold text-slate-700">
                             About
                         </Link>
-                        <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">
+                        <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium font-bold text-slate-700">
                             Contact
                         </Link>
                     </nav>
