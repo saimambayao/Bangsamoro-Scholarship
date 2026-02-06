@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { SCHOLARSHIPS } from "@/lib/mock-data";
+import { SCHOLARSHIPS, NOTIFICATIONS } from "@/lib/mock-data";
 
 import DashboardCalendar from "@/components/shared/DashboardCalendar";
 
@@ -36,33 +36,6 @@ export default function DashboardPage() {
             submittedDate: null,
             lastUpdate: "1 week ago",
             progress: 20
-        }
-    ];
-
-    const notifications = [
-        {
-            id: 1,
-            title: "Application Received",
-            message: "Your application for AHME Scholarship has been successfully submitted.",
-            time: "2 days ago",
-            read: false,
-            type: "success"
-        },
-        {
-            id: 2,
-            title: "Document Verification",
-            message: "Please re-upload your Certificate of Grades. The previous file was blurry.",
-            time: "1 week ago",
-            read: true,
-            type: "warning"
-        },
-        {
-            id: 3,
-            title: "New Scholarship Opening",
-            message: "The BASE-Merit Scholarship program is now accepting applications.",
-            time: "2 weeks ago",
-            read: true,
-            type: "info"
         }
     ];
 
@@ -191,7 +164,7 @@ export default function DashboardPage() {
                             <CardDescription>Latest updates from the portal.</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            {notifications.map((notif) => (
+                            {NOTIFICATIONS.map((notif: any) => (
                                 <div key={notif.id} className={`flex gap-4 p-4 rounded-xl border transition-all ${notif.read ? 'bg-white border-slate-100 shadow-none' : 'bg-emerald-50/30 border-emerald-100 shadow-sm'}`}>
                                     <div className={`mt-1 h-2 w-2 rounded-full shrink-0 ${notif.read ? 'bg-slate-300' : 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]'}`} />
                                     <div className="space-y-1">
