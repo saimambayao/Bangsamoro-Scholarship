@@ -3,15 +3,25 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Search, Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { Input } from "@/components/ui/input";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [user, setUser] = useState<any>(null);
+    const [searchQuery, setSearchQuery] = useState("");
     const pathname = usePathname();
+    const router = useRouter();
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            router.push(`/scholarships?q=${encodeURIComponent(searchQuery.trim())}`);
+        }
+    };
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -63,63 +73,76 @@ export default function Header() {
                     </div>
                 </Link>
 
-                {/* Desktop Nav with Sliding Active Indicator */}
-                <nav className="hidden md:flex items-center gap-8">
-                    {[
-                        { name: "Scholarships", href: "/scholarships" },
-                        { name: "Stories", href: "/success-stories" },
-                        { name: "About", href: "/about" },
-                        { name: "Contact", href: "/contact" },
-                    ].map((item) => (
-                        <Link
-                            key={item.name}
-                            href={item.href}
-                            className="relative py-2 group"
-                        >
-                            <span className={`text-sm font-bold transition-colors duration-300 ${isActive(item.href) ? "text-primary" : "text-slate-600 hover:text-primary"
-                                }`}>
-                                {item.name}
-                            </span>
+                {/* Desktop Search Bar - Centered */}
+                <div className="hidden lg:flex flex-1 max-w-md mx-8">
+                    <form onSubmit={handleSearch} className="relative w-full">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-primary transition-colors" />
+                        <Input
+                            placeholder="Find your scholarship..."
+                            className="w-full pl-10 h-11 bg-slate-50/50 border-slate-200 focus-visible:ring-primary rounded-full transition-all hover:bg-white hover:border-primary/30"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </form>
+                </div>
 
-                            {/* Animated Underline */}
-                            {isActive(item.href) ? (
-                                <motion.div
-                                    layoutId="header-active-link"
-                                    className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary rounded-full"
-                                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                                />
-                            ) : (
-                                <div className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
-                            )}
-                        </Link>
-                    ))}
-                </nav>
+                {/* Right Side Group: Navigation + Actions */}
+                <div className="hidden md:flex items-center gap-10">
+                    {/* Desktop Nav with Sliding Active Indicator */}
+                    <nav className="flex items-center gap-8">
+                        {[
+                            { name: "Scholarships", href: "/scholarships" },
+                            { name: "Stories", href: "/success-stories" },
+                            { name: "About", href: "/about" },
+                            { name: "Contact", href: "/contact" },
+                        ].map((item) => (
+                            <Link
+                                key={item.name}
+                                href={item.href}
+                                className="relative py-2 group"
+                            >
+                                <span className={`text-sm font-bold transition-colors duration-300 ${isActive(item.href) ? "text-primary" : "text-slate-600 hover:text-primary"
+                                    }`}>
+                                    {item.name}
+                                </span>
 
-                {/* Action Buttons */}
-                <div className="hidden md:flex items-center gap-4">
-                    <Button variant="ghost" size="icon">
-                        <Search className="h-5 w-5" />
-                    </Button>
-                    {user ? (
-                        <Link href="/dashboard">
-                            <Button className="bg-primary text-white hover:bg-primary/90 shadow-md">
-                                Dashboard
-                            </Button>
-                        </Link>
-                    ) : (
-                        <>
-                            <Link href="/login">
-                                <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
-                                    Login
+                                {/* Animated Underline */}
+                                {isActive(item.href) ? (
+                                    <motion.div
+                                        layoutId="header-active-link"
+                                        className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary rounded-full"
+                                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                                    />
+                                ) : (
+                                    <div className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+                                )}
+                            </Link>
+                        ))}
+                    </nav>
+
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-4">
+                        {user ? (
+                            <Link href="/dashboard">
+                                <Button className="bg-primary text-white hover:bg-primary/90 shadow-md">
+                                    Dashboard
                                 </Button>
                             </Link>
-                            <Link href="/register">
-                                <Button className="bg-primary text-white hover:bg-primary/90 shadow-md transition-all hover:shadow-lg active:scale-95">
-                                    Register
-                                </Button>
-                            </Link>
-                        </>
-                    )}
+                        ) : (
+                            <>
+                                <Link href="/login">
+                                    <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
+                                        Login
+                                    </Button>
+                                </Link>
+                                <Link href="/register">
+                                    <Button className="bg-primary text-white hover:bg-primary/90 shadow-md transition-all hover:shadow-lg active:scale-95">
+                                        Register
+                                    </Button>
+                                </Link>
+                            </>
+                        )}
+                    </div>
                 </div>
 
                 {/* Mobile menu button */}
