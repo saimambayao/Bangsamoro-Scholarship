@@ -785,3 +785,37 @@ export const AUDIT_LOGS = [
     }
 ];
 
+export const NOTIFICATIONS = [
+    {
+        id: 1,
+        title: "Application Received",
+        message: "Your application for AHME Scholarship has been successfully submitted.",
+        time: "2 hours ago",
+        read: false,
+        type: "success"
+    },
+    {
+        id: 2,
+        title: "Document Verification",
+        message: "Please re-upload your Certificate of Grades. The previous file was blurry.",
+        time: "1 week ago",
+        read: true,
+        type: "warning"
+    },
+    {
+        id: 3,
+        title: "New Scholarship Opening",
+        message: "The BASE-Merit Scholarship program is now accepting applications.",
+        time: "2 weeks ago",
+        read: true,
+        type: "info"
+    },
+    {
+        id: 4,
+        title: "Grant Disbursement",
+        message: "Your monthly allowance for February is now available in your bank account.",
+        time: "1 month ago",
+        read: true,
+        type: "success"
+    }
+];
