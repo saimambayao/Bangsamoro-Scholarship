@@ -60,9 +60,11 @@ export default function SuccessStoriesPage() {
                                         "{featuredStory.quote}"
                                     </blockquote>
 
-                                    <Button className="self-start text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50 p-0 h-auto font-semibold" variant="ghost">
-                                        Read Full Story <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Button>
+                                    <Link href={`/success-stories/${featuredStory.id}`}>
+                                        <Button className="self-start text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50 p-0 h-auto font-semibold" variant="ghost">
+                                            Read Full Story <ArrowRight className="ml-2 h-4 w-4" />
+                                        </Button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -86,33 +88,35 @@ export default function SuccessStoriesPage() {
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {otherStories.map((story) => (
                                 <Card key={story.id} className="group hover:shadow-xl transition-all duration-300 border-slate-200 overflow-hidden bg-white shadow-sm">
-                                    <div className="h-40 relative overflow-hidden">
-                                        <Image
-                                            src={story.image}
-                                            alt={story.name}
-                                            fill
-                                            className="object-cover object-top transition-transform duration-500 group-hover:scale-110"
-                                        />
-                                    </div>
-                                    <CardContent className="p-6">
-                                        <div className="mb-3">
-                                            <Badge variant="outline" className="text-emerald-700 border-emerald-200 bg-emerald-50/50">
-                                                {story.role}
-                                            </Badge>
+                                    <Link href={`/success-stories/${story.id}`}>
+                                        <div className="h-40 relative overflow-hidden">
+                                            <Image
+                                                src={story.image}
+                                                alt={story.name}
+                                                fill
+                                                className="object-cover object-top transition-transform duration-500 group-hover:scale-110"
+                                            />
                                         </div>
-                                        <h3 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-emerald-700 transition-colors">
-                                            {story.name}
-                                        </h3>
-                                        <p className="text-sm text-slate-500 mb-4">{story.school}</p>
+                                        <CardContent className="p-6">
+                                            <div className="mb-3">
+                                                <Badge variant="outline" className="text-emerald-700 border-emerald-200 bg-emerald-50/50">
+                                                    {story.role}
+                                                </Badge>
+                                            </div>
+                                            <h3 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-emerald-700 transition-colors">
+                                                {story.name}
+                                            </h3>
+                                            <p className="text-sm text-slate-500 mb-4">{story.school}</p>
 
-                                        <p className="text-slate-600 line-clamp-3 mb-4">
-                                            "{story.quote}"
-                                        </p>
+                                            <p className="text-slate-600 line-clamp-3 mb-4">
+                                                "{story.quote}"
+                                            </p>
 
-                                        <Button variant="link" className="text-emerald-600 p-0 h-auto hover:text-emerald-700">
-                                            Read Story <ArrowRight className="ml-1 h-3 w-3" />
-                                        </Button>
-                                    </CardContent>
+                                            <Button variant="link" className="text-emerald-600 p-0 h-auto hover:text-emerald-700">
+                                                Read Story <ArrowRight className="ml-1 h-3 w-3" />
+                                            </Button>
+                                        </CardContent>
+                                    </Link>
                                 </Card>
                             ))}
                         </div>
