@@ -334,11 +334,19 @@ export default function ScholarshipDetailPage({ params }: { params: Promise<{ id
                                             <Separator />
 
                                             <div className="space-y-4">
-                                                <Link href={`/scholarships/${scholarship.id}/apply`} className="w-full block">
-                                                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-200">
-                                                        Apply Now
-                                                    </Button>
-                                                </Link>
+                                                <Button
+                                                    className="w-full bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-200"
+                                                    onClick={() => {
+                                                        const user = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+                                                        if (!user) {
+                                                            window.location.href = `/login?callbackUrl=/scholarships/${scholarship.id}/apply`;
+                                                        } else {
+                                                            window.location.href = `/scholarships/${scholarship.id}/apply`;
+                                                        }
+                                                    }}
+                                                >
+                                                    Apply Now
+                                                </Button>
                                                 <Button variant="outline" className="w-full border-slate-300 text-slate-700 hover:text-emerald-700 hover:border-emerald-300">
                                                     <Bookmark className="mr-2 h-4 w-4" />
                                                     Save for Later

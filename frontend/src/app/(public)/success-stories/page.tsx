@@ -47,7 +47,7 @@ export default function SuccessStoriesPage() {
                                 </div>
                                 <div className="p-6 md:p-10 flex flex-col justify-center">
                                     <div className="mb-4">
-                                        <Badge className="bg-emerald-600 hover:bg-emerald-700 mb-3">Featured Story</Badge>
+                                        <Badge className="bg-emerald-600 hover:bg-emerald-700 mb-3">Story</Badge>
                                         <h2 className="text-2xl font-bold text-slate-900 mb-2">
                                             "From a Small Barangay to Licensed Nurse"
                                         </h2>

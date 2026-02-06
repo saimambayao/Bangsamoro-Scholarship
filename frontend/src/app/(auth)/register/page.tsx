@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Loader2, UserPlus } from "lucide-react";
+import { ArrowLeft, Loader2, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,11 @@ import { motion, Variants } from "framer-motion";
 
 export default function RegisterPage() {
     const [isLoading, setIsLoading] = useState(false);
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     // Animation Variants
     const containerVariants: Variants = {
@@ -35,10 +40,18 @@ export default function RegisterPage() {
 
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();
+        setError(null);
+
+        if (password !== confirmPassword) {
+            setError("Passwords do not match. Please try again.");
+            return;
+        }
+
         setIsLoading(true);
 
         setTimeout(() => {
             setIsLoading(false);
+            // In Phase 2, this would call the API
         }, 2000);
     }
 
@@ -132,6 +145,16 @@ export default function RegisterPage() {
                                 animate="visible"
                                 className="grid gap-6"
                             >
+                                {error && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-xl text-sm font-bold shadow-sm flex items-center gap-2"
+                                    >
+                                        <div className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                                        {error}
+                                    </motion.div>
+                                )}
                                 <form onSubmit={onSubmit}>
                                     <div className="grid gap-6">
                                         <div className="grid grid-cols-2 gap-4">
@@ -159,8 +182,47 @@ export default function RegisterPage() {
                                         </motion.div>
                                         <motion.div variants={itemVariants} className="grid gap-2.5">
                                             <Label htmlFor="password" title="password" className="text-slate-700 font-medium text-sm ml-1">Password</Label>
-                                            <Input id="password" type="password" placeholder="••••••••" disabled={isLoading} className="h-11 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-lg transition-all duration-300 font-medium text-base text-slate-700 placeholder:tracking-widest" />
-                                            <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest ml-1">Security: Minimum 8 characters</p>
+                                            <div className="relative">
+                                                <Input
+                                                    id="password"
+                                                    type={showPassword ? "text" : "password"}
+                                                    placeholder="••••••••"
+                                                    disabled={isLoading}
+                                                    value={password}
+                                                    onChange={(e) => setPassword(e.target.value)}
+                                                    className="h-11 border-slate-200 focus:border-emerald-500 bg-white shadow-sm rounded-lg transition-all duration-300 pr-12 font-medium text-base text-slate-700 placeholder:tracking-widest"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowPassword(!showPassword)}
+                                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 p-1.5 rounded-lg transition-all duration-300"
+                                                    tabIndex={-1}
+                                                >
+                                                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                                </button>
+                                            </div>
+                                        </motion.div>
+                                        <motion.div variants={itemVariants} className="grid gap-2.5">
+                                            <Label htmlFor="confirm-password" title="password" className="text-slate-700 font-medium text-sm ml-1 text-emerald-700">Confirm Password</Label>
+                                            <div className="relative">
+                                                <Input
+                                                    id="confirm-password"
+                                                    type={showConfirmPassword ? "text" : "password"}
+                                                    placeholder="••••••••"
+                                                    disabled={isLoading}
+                                                    value={confirmPassword}
+                                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                                    className="h-11 border-emerald-100 focus:border-emerald-500 bg-white shadow-sm rounded-lg transition-all duration-300 pr-12 font-medium text-base text-slate-700 placeholder:tracking-widest"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 p-1.5 rounded-lg transition-all duration-300"
+                                                    tabIndex={-1}
+                                                >
+                                                    {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                                </button>
+                                            </div>
                                         </motion.div>
 
                                         <motion.div variants={itemVariants} className="pt-2">

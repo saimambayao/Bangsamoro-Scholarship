@@ -4,13 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Search, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [user, setUser] = useState<any>(null);
     const pathname = usePathname();
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
 
     const isActive = (path: string) => pathname === path;
 
@@ -59,7 +67,7 @@ export default function Header() {
                 <nav className="hidden md:flex items-center gap-8">
                     {[
                         { name: "Scholarships", href: "/scholarships" },
-                        { name: "Success Stories", href: "/success-stories" },
+                        { name: "Stories", href: "/success-stories" },
                         { name: "About", href: "/about" },
                         { name: "Contact", href: "/contact" },
                     ].map((item) => (
@@ -92,16 +100,26 @@ export default function Header() {
                     <Button variant="ghost" size="icon">
                         <Search className="h-5 w-5" />
                     </Button>
-                    <Link href="/login">
-                        <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
-                            Login
-                        </Button>
-                    </Link>
-                    <Link href="/register">
-                        <Button className="bg-primary text-white hover:bg-primary/90 shadow-md transition-all hover:shadow-lg active:scale-95">
-                            Register
-                        </Button>
-                    </Link>
+                    {user ? (
+                        <Link href="/dashboard">
+                            <Button className="bg-primary text-white hover:bg-primary/90 shadow-md">
+                                Dashboard
+                            </Button>
+                        </Link>
+                    ) : (
+                        <>
+                            <Link href="/login">
+                                <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
+                                    Login
+                                </Button>
+                            </Link>
+                            <Link href="/register">
+                                <Button className="bg-primary text-white hover:bg-primary/90 shadow-md transition-all hover:shadow-lg active:scale-95">
+                                    Register
+                                </Button>
+                            </Link>
+                        </>
+                    )}
                 </div>
 
                 {/* Mobile menu button */}
@@ -121,7 +139,7 @@ export default function Header() {
                             Scholarships
                         </Link>
                         <Link href="/success-stories" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">
-                            Success Stories
+                            Stories
                         </Link>
                         <Link href="/about" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">
                             About
@@ -131,16 +149,26 @@ export default function Header() {
                         </Link>
                     </nav>
                     <div className="flex flex-col gap-3 pt-4">
-                        <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                            <Button variant="outline" className="w-full">
-                                Login
-                            </Button>
-                        </Link>
-                        <Link href="/register" onClick={() => setIsMenuOpen(false)}>
-                            <Button className="w-full bg-primary text-white">
-                                Register
-                            </Button>
-                        </Link>
+                        {user ? (
+                            <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                                <Button className="w-full bg-primary text-white">
+                                    Go to Dashboard
+                                </Button>
+                            </Link>
+                        ) : (
+                            <>
+                                <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                                    <Button variant="outline" className="w-full">
+                                        Login
+                                    </Button>
+                                </Link>
+                                <Link href="/register" onClick={() => setIsMenuOpen(false)}>
+                                    <Button className="w-full bg-primary text-white">
+                                        Register
+                                    </Button>
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             )}

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CheckCircle2, FileText, Router, Save, UploadCloud, AlertCircle, Loader2, PartyPopper, Home } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, FileText, Save, UploadCloud, AlertCircle, Loader2, PartyPopper, Home } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -42,7 +43,21 @@ const itemVariants = {
 
 export default function ApplicationFormPage() {
     const params = useParams();
+    const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+        if (!user) {
+            router.push(`/login?callbackUrl=/scholarships/${params.id}/apply`);
+        } else {
+            setIsAuthenticated(true);
+        }
+        setIsLoading(false);
+    }, [params.id, router]);
+
     const [error, setError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -155,6 +170,16 @@ export default function ApplicationFormPage() {
             window.scrollTo(0, 0);
         }, 3000);
     };
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-slate-50">
+                <Loader2 className="h-10 w-10 animate-spin text-emerald-600" />
+            </div>
+        );
+    }
+
+    if (!isAuthenticated) return null;
 
     if (isSubmitted) {
         return (

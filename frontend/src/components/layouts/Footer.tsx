@@ -58,7 +58,7 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link href="/success-stories" className="text-muted-foreground hover:text-primary transition-colors">
-                                    Success Stories
+                                    Stories
                                 </Link>
                             </li>
                             <li>

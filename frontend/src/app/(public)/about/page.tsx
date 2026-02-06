@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { STATS, PARTNERS } from "@/lib/mock-data";
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
+import PartnerMarquee from "@/components/features/PartnerMarquee";
 
 export default function AboutPage() {
     return (
@@ -119,24 +120,14 @@ export default function AboutPage() {
                     </div>
                 </section>
 
-                {/* Partners Section */}
-                <section className="py-10 bg-emerald-50/50 border-y border-emerald-100">
-                    <div className="container mx-auto px-4 md:px-6 text-center">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-12">Our Partner Agencies</h2>
-
-                        <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-                            {PARTNERS.map((partner, index) => (
-                                <div key={index} className="flex flex-col items-center max-w-[200px]">
-                                    <div className="w-20 h-20 flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-300">
-                                        <img src={partner.logo} alt={partner.code} className="w-full h-full object-contain" />
-                                    </div>
-                                    <span className="text-lg font-bold text-slate-800">{partner.code}</span>
-                                    <span className="text-sm text-slate-500 mt-2 font-medium">{partner.name}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
+                {/* Partners Section - Animated Marquee */}
+                <div className="bg-emerald-50/10 border-y border-emerald-100/50">
+                    <PartnerMarquee
+                        title="Our Partner Agencies"
+                        showDetails={true}
+                        className="py-16"
+                    />
+                </div>
 
                 {/* Team Section (Placeholder) */}
                 <section className="py-10">

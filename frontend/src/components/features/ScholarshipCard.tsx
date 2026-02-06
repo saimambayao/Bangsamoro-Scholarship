@@ -86,11 +86,20 @@ export default function ScholarshipCard({ scholarship }: ScholarshipCardProps) {
                             Details
                         </Button>
                     </Link>
-                    <Link href={`/scholarships/${scholarship.id}/apply`}>
-                        <Button className="bg-primary text-white font-bold transition-all duration-200 hover:bg-primary/90 hover:scale-105 active:scale-95">
-                            Apply <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                        </Button>
-                    </Link>
+                    <Button
+                        className="bg-primary text-white font-bold transition-all duration-200 hover:bg-primary/90 hover:scale-105 active:scale-95"
+                        onClick={(e) => {
+                            e.stopPropagation(); // Prevent triggering the card's click if any
+                            const user = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+                            if (!user) {
+                                window.location.href = `/login?callbackUrl=/scholarships/${scholarship.id}/apply`;
+                            } else {
+                                window.location.href = `/scholarships/${scholarship.id}/apply`;
+                            }
+                        }}
+                    >
+                        Apply <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </Button>
                 </div>
             </div>
         </motion.div>

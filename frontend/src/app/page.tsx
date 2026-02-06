@@ -50,13 +50,13 @@ export default function Home() {
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-4 whitespace-normal">
             {[
-              { step: "01", title: "Create Profile", desc: "Register and complete your academic and personal profile.", icon: <UserPlus className="h-10 w-10" /> },
-              { step: "02", title: "Browse", desc: "Discover scholarships that match your eligibility and course.", icon: <Search className="h-10 w-10" /> },
-              { step: "03", title: "Apply Online", desc: "Submit your application and upload documents directly.", icon: <ClipboardList className="h-10 w-10" /> },
-              { step: "04", title: "Track Status", desc: "Monitor your application progress in real-time.", icon: <CheckCircle2 className="h-10 w-10" /> },
+              { step: "01", title: "Create Profile", desc: "Register and complete your academic and personal profile.", icon: <UserPlus className="h-8 w-8" /> },
+              { step: "02", title: "Browse", desc: "Discover scholarships that match your eligibility and course.", icon: <Search className="h-8 w-8" /> },
+              { step: "03", title: "Apply Online", desc: "Submit your application and upload documents directly.", icon: <ClipboardList className="h-8 w-8" /> },
+              { step: "04", title: "Track Status", desc: "Monitor your application progress in real-time.", icon: <CheckCircle2 className="h-8 w-8" /> },
             ].map((item, idx) => (
               <div key={idx} className="relative flex flex-col items-center text-center group">
-                <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                <div className="mb-4 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
                   {item.icon}
                 </div>
                 <h3 className="mb-3 text-xl font-bold">{item.title}</h3>
@@ -67,7 +67,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Success Stories Peek */}
+      {/* Stories Peek */}
       <section className="bg-primary py-16 text-white overflow-hidden relative">
         <div className="absolute inset-0 z-0">
           <motion.div
