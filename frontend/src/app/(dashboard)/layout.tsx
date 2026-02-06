@@ -18,7 +18,8 @@ import {
     Bell,
     Search,
     Bookmark,
-    Users
+    Users,
+    ArrowRight
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -27,6 +28,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
 const sidebarNavItems = [
     {
@@ -72,6 +74,7 @@ const sidebarNavItems = [
 ];
 
 
+import { NOTIFICATIONS } from "@/lib/mock-data";
 import RealTimeClock from "@/components/shared/RealTimeClock";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -99,6 +102,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     if (!mounted) {
         return <div className="min-h-screen bg-slate-50" />;
     }
+
+    const unreadCount = NOTIFICATIONS.filter(n => !n.read).length;
 
     return (
         <div className="flex min-h-screen flex-col md:flex-row bg-slate-50">
@@ -249,10 +254,58 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         <div className="hidden sm:block mr-2">
                             <RealTimeClock />
                         </div>
-                        <Button variant="ghost" size="icon" className="relative text-slate-500 hover:text-emerald-600 rounded-full">
-                            <Bell className="h-5 w-5" />
-                            <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
-                        </Button>
+
+                        {/* Functional Notification Bell with styling from image */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="relative h-10 w-10 flex items-center justify-center bg-amber-100/50 hover:bg-amber-100 rounded-full flex-shrink-0 transition-all duration-300 group shadow-sm active:scale-95"
+                                >
+                                    <Bell className="h-[22px] w-[22px] text-emerald-800 group-hover:scale-110 transition-transform duration-300" strokeWidth={2} />
+                                    {unreadCount > 0 && (
+                                        <span className="absolute top-1 right-1 h-3.5 w-3.5 rounded-full bg-red-500 border-2 border-white ring-1 ring-red-200 animate-pulse shadow-sm"></span>
+                                    )}
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-80 p-0 border-slate-200 shadow-xl rounded-2xl overflow-hidden mt-1">
+                                <div className="p-4 bg-slate-50 border-b flex items-center justify-between">
+                                    <DropdownMenuLabel className="p-0 font-bold text-base text-slate-900">Notifications</DropdownMenuLabel>
+                                    <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-100 font-bold text-[10px]">{unreadCount} New</Badge>
+                                </div>
+                                <div className="max-h-[350px] overflow-y-auto">
+                                    {NOTIFICATIONS.length > 0 ? (
+                                        <div className="divide-y divide-slate-100">
+                                            {NOTIFICATIONS.map((notif) => (
+                                                <DropdownMenuItem
+                                                    key={notif.id}
+                                                    className={`flex flex-col items-start p-4 cursor-pointer hover:bg-slate-50 focus:bg-slate-50 gap-1 transition-colors ${!notif.read ? 'bg-emerald-50/20' : ''}`}
+                                                    onClick={() => router.push('/dashboard/notifications')}
+                                                >
+                                                    <div className="flex items-center justify-between w-full">
+                                                        <span className="font-bold text-sm text-slate-900 leading-none">{notif.title}</span>
+                                                        <span className="text-[10px] text-slate-400 font-bold uppercase">{notif.time}</span>
+                                                    </div>
+                                                    <p className="text-xs text-slate-500 leading-snug">{notif.message}</p>
+                                                </DropdownMenuItem>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div className="p-8 text-center">
+                                            <p className="text-sm text-slate-500 italic">No notifications yet.</p>
+                                        </div>
+                                    )}
+                                </div>
+                                <DropdownMenuSeparator className="m-0" />
+                                <Link href="/dashboard/notifications" className="block w-full">
+                                    <Button variant="ghost" className="w-full rounded-none h-12 text-xs font-bold text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50 border-t-0">
+                                        View All Notifications <ArrowRight className="ml-2 h-3 w-3" />
+                                    </Button>
+                                </Link>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
                         <div className="h-8 w-px bg-slate-200 mx-1" />
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
