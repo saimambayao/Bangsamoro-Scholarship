@@ -17,7 +17,8 @@ import {
     User,
     Bell,
     Search,
-    Bookmark
+    Bookmark,
+    Users
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -52,6 +53,11 @@ const sidebarNavItems = [
         title: "Messages",
         href: "/dashboard/messages",
         icon: Mail,
+    },
+    {
+        title: "Community",
+        href: "/dashboard/community",
+        icon: Users,
     },
     {
         title: "Profile",
@@ -133,63 +139,50 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
 
             {/* Desktop Sidebar */}
-            <aside className="hidden md:flex w-64 flex-col fixed inset-y-0 z-50 bg-white border-r">
-                <div className="h-16 flex items-center px-6 border-b">
+            <aside className="hidden md:flex w-64 flex-col fixed inset-y-0 z-50 bg-white border-r shadow-[1px_0_10px_rgba(0,0,0,0.02)]">
+                <div className="h-16 flex items-center px-5 border-b">
                     <Link href="/" className="flex items-center gap-3 group w-full overflow-hidden">
                         <Image
                             src="/images/logo.png"
                             alt="Bangsamoro Scholarship Portal"
-                            width={36}
-                            height={36}
-                            className="flex-shrink-0 w-9 h-9 rounded-full"
+                            width={32}
+                            height={32}
+                            className="flex-shrink-0 w-8 h-8 rounded-full shadow-sm"
                         />
                         <div className="flex flex-col min-w-0">
-                            <span className="font-bold text-base text-slate-900 tracking-tight truncate">
+                            <span className="font-bold text-base text-slate-800 tracking-tight truncate leading-tight">
                                 Bangsamoro
                             </span>
-                            <span className="text-[10px] uppercase font-bold text-slate-900 tracking-wider truncate">
-                                <span className="text-secondary">Scholarship</span> Portal
+                            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest truncate mt-0.5">
+                                <span className="text-secondary/80">Scholarship</span> Portal
                             </span>
                         </div>
                     </Link>
                 </div>
-                <div className="p-4">
-                    <Link href="/scholarships">
-                        <Button className="w-full bg-emerald-600 hover:bg-emerald-700 shadow-sm mb-6">
-                            Browse Scholarships
-                        </Button>
-                    </Link>
-
-                    <nav className="flex flex-col gap-1 relative">
+                <div className="p-4 pt-4">
+                    <nav className="flex flex-col gap-1.5 relative text-slate-600">
                         {sidebarNavItems.map((item) => {
                             const active = pathname === item.href;
                             return (
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className="relative"
+                                    className="relative px-1"
                                 >
                                     <div
-                                        className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-bold transition-all ${active
+                                        className={`flex items-center gap-3.5 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${active
                                             ? "text-emerald-700"
-                                            : "text-slate-500 hover:text-emerald-600 hover:bg-emerald-50/50"
+                                            : "hover:text-emerald-600 hover:bg-slate-50"
                                             }`}
                                     >
-                                        <item.icon className={`h-4 w-4 transition-colors ${active ? "text-emerald-600" : "text-slate-400"}`} />
+                                        <item.icon className={`h-[18px] w-[18px] transition-colors ${active ? "text-emerald-600" : "text-slate-400"}`} />
                                         {item.title}
                                     </div>
 
                                     {active && (
                                         <motion.div
                                             layoutId="sidebar-active-indicator"
-                                            className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-gradient-to-b from-emerald-600 to-secondary rounded-full"
-                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                        />
-                                    )}
-                                    {active && (
-                                        <motion.div
-                                            layoutId="sidebar-active-bg"
-                                            className="absolute inset-0 bg-emerald-50/60 -z-10 rounded-md"
+                                            className="absolute left-0 top-3 bottom-3 w-1 bg-gradient-to-b from-emerald-600 to-secondary rounded-full"
                                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                         />
                                     )}
@@ -199,23 +192,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     </nav>
                 </div>
                 <div className="mt-auto p-4 border-t bg-slate-50/50">
-                    <div className="flex items-center gap-3 px-2 py-2 mb-2">
-                        <Avatar className="h-9 w-9 border">
-                            <AvatarImage src="/avatars/user.jpg" alt="User" />
-                            <AvatarFallback>JD</AvatarFallback>
-                        </Avatar>
+                    <div className="flex items-center gap-3 px-2 py-2 mb-3">
+                        <div className="relative">
+                            <Avatar className="h-10 w-10 border-2 border-white shadow-sm">
+                                <AvatarImage src="/avatars/user.jpg" alt="User" />
+                                <AvatarFallback className="bg-emerald-100 text-emerald-700 font-bold">JD</AvatarFallback>
+                            </Avatar>
+                            <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-emerald-500 border-2 border-white shadow-sm"></span>
+                        </div>
                         <div className="flex-1 overflow-hidden">
-                            <p className="truncate text-sm font-medium text-slate-900">Juan Dela Cruz</p>
-                            <p className="truncate text-xs text-slate-500">juan@example.com</p>
+                            <p className="truncate text-sm font-bold text-slate-800">Juan Dela Cruz</p>
+                            <p className="truncate text-[11px] text-slate-500 font-medium">juan@example.com</p>
                         </div>
                     </div>
                     <Button
                         onClick={handleLogout}
                         variant="ghost"
                         size="sm"
-                        className="w-full justify-start text-slate-500 hover:text-red-600 hover:bg-red-50"
+                        className="w-full justify-start text-[13px] text-slate-500 hover:text-red-600 hover:bg-red-50 font-bold rounded-lg transition-colors"
                     >
-                        <LogOut className="mr-2 h-4 w-4" />
+                        <LogOut className="mr-3 h-4 w-4" />
                         Sign Out
                     </Button>
                 </div>
@@ -224,16 +220,24 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* Main Content Area */}
             <div className="flex-1 md:ml-64 flex flex-col min-h-screen">
                 <header className="h-16 flex items-center justify-between px-6 bg-white/80 backdrop-blur-md border-b sticky top-0 z-40">
-                    <div className="flex-1 flex justify-center max-w-2xl mx-auto">
-                        <form onSubmit={handleSearch} className="relative w-full">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                            <Input
-                                placeholder="Search scholarships..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-10 h-10 bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 rounded-full transition-all hover:bg-white"
-                            />
-                        </form>
+                    <div className="flex items-center gap-4 flex-1">
+                        <Link href="/scholarships" className="hidden xl:block">
+                            <Button variant="ghost" className="text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50 h-10 font-bold text-xs uppercase tracking-wider px-4 rounded-lg transition-all active:scale-95 border-none">
+                                Browse Scholarships
+                            </Button>
+                        </Link>
+                        <div className="hidden xl:block h-6 w-px bg-slate-200 mx-1" />
+                        <div className="flex-1 max-w-xl">
+                            <form onSubmit={handleSearch} className="relative w-full">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                                <Input
+                                    placeholder="Search scholarships..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 rounded-full transition-all hover:bg-white"
+                                />
+                            </form>
+                        </div>
                     </div>
                     <div className="flex items-center gap-3 ml-4">
                         <Button variant="ghost" size="icon" className="relative text-slate-500 hover:text-emerald-600 rounded-full">
